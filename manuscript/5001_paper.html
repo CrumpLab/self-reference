@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.258">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>paper</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="5001_paper_files/libs/clipboard/clipboard.min.js"></script>
+<script src="5001_paper_files/libs/quarto-html/quarto.js"></script>
+<script src="5001_paper_files/libs/quarto-html/popper.min.js"></script>
+<script src="5001_paper_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="5001_paper_files/libs/quarto-html/anchor.min.js"></script>
+<link href="5001_paper_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="5001_paper_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="5001_paper_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="5001_paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="5001_paper_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seed for random number generation</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache.extra =</span> knitr<span class="sc">::</span>rand_seed,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">echo =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">message=</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">error =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="what-is-self-reference-effect" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-self-reference-effect">What is self-reference effect?</h2>
+<p><em>The self is a collection of the way we see our world, people and make everyday judgments in the light of our past experiences.</em> should i delete this? Individuals process information related to one’s self and life experiences through an organized cognitive structure called self-schemata which functions as an invariable baseline against processing incoming information and making decisions or predictions about the self in various situations <span class="citation" data-cites="markus_self-schemata_1977">[@markus_self-schemata_1977]</span>. The self has also been included in memory research over the years as a powerful mnemonic device to enhance recall. However,let us trace back to a review of one of the memory frameworks which has been refined and expanded upon for the self-reference phenomena to have been acknowledged as a mnemonic device. One of the earliest approaches to memory divided it into multilevel storage comprising of sensory stores, short-term memory and long term memory <span class="citation" data-cites="craik_levels_1972">[@craik_levels_1972]</span>. The multistore model approach is neatly divided into boxes in which particular information is stored, for example, in long term memory, mostly semantic memory is stored. However, <span class="citation" data-cites="craik_levels_1972">[@craik_levels_1972]</span> proposed that the multistore model of memory does not have satisfactory explanation to the process of memory and proposed that it is more important to view memory in terms of of levels of processing and the when the stimuli is compatible with the present cognitive concepts in mind, they will be encoded more deeply than the stimuli which is not meaningful as it does not align with any cognitive structure. This framework’s idea of deeper processing was thus supported by an experiment whose findings confirmed that the semantic tasks yielded far better performance on recall and recognition tests than structural or phonemic tasks. Although their empirical findings also presented that the time spent does not mean better retention but what matters is the the type of task involved in encoding <span class="citation" data-cites="craik_depth_1975">[@craik_depth_1975]</span>. In 1977, <span class="citation" data-cites="rogers_self-reference_1977">[@rogers_self-reference_1977]</span> suggested that self can act as an abstract representation of one’s idea of the world which also includes past experiences and can be used to interpret new information, thus the self-reference can be an effective device in encoding of stimulus in an experiment in comparison to semantic tasks. Their results found that self-reference task appeared to be the dominant encoding device in comparison to semantic task during incidental recall in the experiment <span class="citation" data-cites="rogers_self-reference_1977">[@rogers_self-reference_1977]</span>. Furthermore, yes-rated items were recalled more than the words rated as no, and <span class="citation" data-cites="rogers_self-reference_1977">[@rogers_self-reference_1977]</span> put forward that this view is aligned with the idea that self is a well organized set of traits arranged in a hierarchy in which the traits which fits the person most and is important to them is at the top. The bias for self referent information was further tested by incidental encoding conditions in <span class="citation" data-cites="turk_self-memory_2008">[@turk_self-memory_2008]</span>‘s experiment in which participants were instructed to only judge if the trait adjective was located above or below the cue which could be either self or other. The results showed presence of the self reference effect in incidental condition as well which means that self does not need explicit cues to enhance memory performance. Research involving participants with neurological damage have also showed that in self-imagining encoding condition recall for 16 items improved even after a 30 minute delay <span class="citation" data-cites="grilli_self-imagination_2011">[@grilli_self-imagination_2011]</span>. Other than trait adjectives, relating specific episode phrases to one’s self has also produced superior recall equivalent to the participant judging if the trait adjectives described them <span class="citation" data-cites="bower_remembering_1979">[@bower_remembering_1979]</span>. The involvement of self in our everyday lives was also demonstrated when participants recalled birthdays which were closer to their own birthdays, whether it involved their friends or strangers’ birthdays <span class="citation" data-cites="kesebir_spontaneous_2010">[@kesebir_spontaneous_2010]</span>.</p>
+</section>
+<section id="self-in-the-brain-idk-if-it-is-corny" class="level2">
+<h2 class="anchored" data-anchor-id="self-in-the-brain-idk-if-it-is-corny">Self in the brain idk if it is corny</h2>
+<p>Additionally, neuroimaging investigations have also sought out to find brain regions involved in self-referential processing of memory. A meta analysis of a neuroimaging studies involving fMRI has suggested that cortical midline structures are activated in experiments which entailed relating information to one’s self.<span class="citation" data-cites="northoff_self-referential_2006">[@northoff_self-referential_2006]</span> Specifically, <span class="citation" data-cites="macrae_medial_2004">[@macrae_medial_2004]</span> found that medial prefrontal cortex was activated during processing of self-relevant adjectives and suggests that self-referential memory formation is distinct from semantic encoding of information.</p>
+</section>
+<section id="what-are-the-underlying-mechanisms-of-the-self-reference-effect" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-underlying-mechanisms-of-the-self-reference-effect">What are the underlying mechanisms of the self-reference effect?</h2>
+<p>However, despite replications of the self-reference emerging as a robust encoding device in incidental recall paradigm, there have not been many conclusive attempts to discover more detailed reasoning underlying the process of the self-reference effect. <span class="citation" data-cites="ganellen_why_1985">[@ganellen_why_1985]</span> hypothesized several mediators for as to the reasons self-reference promotes incidental encoding; they proposed that affect could facilitate deep encoding of traits which relate positively to the schema of one’s self.They also proposed that it could also matter how important the word was to subject and thirdly, the level of how distinctive that word is to the subject could also lead to deeper processing. Their findings did show that in in recall subjects were able to recall words that described than more than the words that had referred to others and higher recall for words judged as affirmative. However, none of the mediators were implicated in the interaction with the self-reference effect <span class="citation" data-cites="ganellen_why_1985">[@ganellen_why_1985]</span>. There have been other underlying factors proposed to have been supporting the self-reference effect: elaborative processing and organizational processing. In the process of elaboration, the stimulus word is encoded as a reference to the information related to the target word already present in subject’s memory which makes it easier to recall as multiple retrieval routes are established for recalling it <span class="citation" data-cites="klein_nature_1988">[@klein_nature_1988]</span>. On the other hand, if the subjects are cued to form associations between words and cluster them under categorical labels, they can later use that process of organization in retrieval. (<span class="citation" data-cites="tulving_availability_1966">[@tulving_availability_1966]</span>, as mentioned in <span class="citation" data-cites="klein_nature_1988">[@klein_nature_1988]</span>. Their experiment results yielded that it is possible that both elaborative and organizational processes were involved in self-reference yet the study was unable to draw a conclusion about which one produced larger recall. It is also possible that most of the research in regard to processes underlying SRE has been inconsistent because some studies also use descriptive tasks (ex. <span class="citation" data-cites="rogers_self-reference_1977">[@rogers_self-reference_1977]</span>) while other studies use autobiographical task which allows for retrieval of an autobiographical memory in response to the stimulus word <span class="citation" data-cites="klein_two_1989">[@klein_two_1989]</span>. As shown by <span class="citation" data-cites="klein_two_1989">[@klein_two_1989]</span> their experiment demonstrated that subjects recalled more words when they had to do both, autobiographical and descriptive tasks in contrast to two of the same tasks in a row.</p>
+</section>
+<section id="coould-the-self-reference-effect-be-a-retrieval-practice-phenomemon" class="level2">
+<h2 class="anchored" data-anchor-id="coould-the-self-reference-effect-be-a-retrieval-practice-phenomemon">Coould the Self-Reference Effect be a retrieval practice phenomemon?</h2>
+<p>This was a singular and prevalent perspective of viewing the phenomenon of self-reference effect which is primarily based upon memory as having deeper levels of processing <span class="citation" data-cites="craik_levels_1972">[@craik_levels_1972]</span>. Operating within this paradigm, <span class="citation" data-cites="rogers_self-reference_1977">[@rogers_self-reference_1977]</span> and subsequent research experiments have therefore been interested in investigating self-reference effect as a cue to encode stimuli deeply as it enables the person to relate the stimuli to themselves which leads to better retention of it. However, it is possible that during recall, it does not depend on the depth of encoding but rather on the strength of the retrieval cue. Self-reference can be an effective retrieval cue given that in our everyday lives, it is frequently used to recall personal experiences which also means that it is more readily available to be used as mnemonic device rather than the semantics cue. Thus self-reference effect also has the advantage of having been practiced in memory retrieval more than other tasks given its frequent usage. Furthermore, recall failures can also be the result of the inability to retrieve information from long term storage rather than information being lost from long term storage <span class="citation" data-cites="buschke_spontaneous_1974">[@buschke_spontaneous_1974]</span>. This reasoning can also be applied to explain the under-performance of mnemonic tasks other than the SRE as it is possible that the information was retained but it was unable to be recalled due to infrequent use of these tasks in retrieval. Given the scant number of research done on retrieval in learning, most theories have therefore focused on searching for ways to enhance encoding information but one theory states that when we retrieve information, we reconstruct what we already know by using the cues to remember <span class="citation" data-cites="karpicke_retrieval-based_2012">[@karpicke_retrieval-based_2012]</span>.</p>
+</section>
+<section id="what-is-retrieval-practice-and-how-does-it-improve-memory-performance" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-retrieval-practice-and-how-does-it-improve-memory-performance">What is Retrieval Practice and how does it improve memory performance?</h2>
+<p>Retrieval Practice is usually referred to the repeat testing trials on the same material which is to be tested on the final recall trial. A meta-analysis of studies on retrieval practice confirms that the practice tests considerably enhance learning in contrast to restudying the same material. Some studies have suggested the role of elaborative processing in retrieval, that is, that during encoding there are several semantic associations produced in relation to the the target word to aid the recall of the word or elaboration could also produce more retrieval cues for learning <span class="citation" data-cites="karpicke_separate_2012">[@karpicke_separate_2012]</span>. However, <span class="citation" data-cites="karpicke_separate_2012">[@karpicke_separate_2012]</span> demonstrated in one of their experiments with identical word pairs that retrieval practice does not occur due to elaboration but there are processes which are special to retrieval only.</p>
+</section>
+<section id="role-of-retrieval-practice-in-the-self-reference-effect" class="level2">
+<h2 class="anchored" data-anchor-id="role-of-retrieval-practice-in-the-self-reference-effect">Role of Retrieval Practice in the Self-Reference Effect</h2>
+<p>The present study acknowledges that self reference effect has been reliably demonstrated in research, however there has not been much agreement on the factors underlying the occurrence of this phenomenon. Research has heavily focused on the self as a structure interpreting available stimuli against past experiences which can leave a stronger trace in memory. The purpose of this study is to to include a different perspective which takes the importance of retrieval into account as one of the factors for improving recalling. This paper assumes that self-reference effect has emerged strong in free recall experiments since the participant can relate the trait adjectives to themselves using self which repeatedly engages with new information by using retrieval cues. We hypothesize that self will not emerge as a special mnemonic device in retrieval practice condition, as the memory performance will be the same across conditions. Our another hypothesis states that self and other study conditions will improve memory performance but self will remain as the subordinate mnenominc device. The current experiment will be conducted online since majority of these experiments were conducted in laboratory which can often mean that the results obtained in controlled setting could possibly not be applied to in real life. An online version of self-reference paradigm has already replicated the original <span class="citation" data-cites="rogers_self-reference_1977">[@rogers_self-reference_1977]</span> study and found a strong self reference effect in their online experiment <span class="citation" data-cites="bentley_online_2017">[@bentley_online_2017]</span>.</p>
+</section>
+<section id="experiment-1" class="level2">
+<h2 class="anchored" data-anchor-id="experiment-1">Experiment 1</h2>
+<p>Experiment 1 will resemble the original <span class="citation" data-cites="rogers_self-reference_1977">[@rogers_self-reference_1977]</span> experiment in its general outline with major deviations (1) The experiment will include the original three tasks excluding phonemic task (2) The experiment will include free recall test in between the questions as well as the additional final recall cue at the end (3) All questions will contain one target trait-adjective to avoid any potential interference of non-target words.</p>
+</section>
+</section>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<section id="participants." class="level2">
+<h2 class="anchored" data-anchor-id="participants.">Participants.</h2>
+<p>A total of 50 participants were recruited from Amazon’s Mechanical Turk. Mean age was 33.9 (range = 25 to 69 ). There were 26 females, and 23 males. There were 42 right-handed participants, and 8 left or both handed participants. 45 participants reported normal vision, and 4 participants reported corrected-to-normal vision. 48 participants reported English as a first language, and NA participants reported English as a second language.</p>
+</section>
+<section id="materials" class="level2">
+<h2 class="anchored" data-anchor-id="materials">Materials</h2>
+<p>There were 36 words presented in the experiment. These words were adjectives for personality traits. There were three categories of encoding tasks which were defined as structural, self-reference and phonemic.Half of the words were negative traits and other half were positive traits. It was also ensured that there was an equal ratio of positive and negative words for each encoding/retrieval task. Half of the words in the list were also presented uppercase and half of the words were presented in lowercase. This was done to prevent the participant to discriminate between structural and other tasks in terms of uppercase and lowercase words. The adjectives were retrieved from the standardized pool of 555 personality-trait words. what was the other sourcer for new adjectives?</p>
+<p>We used R <span class="citation" data-cites="R-base">[Version 4.2.2\; @R-base]</span> and the R-packages <em>data.table</em> <span class="citation" data-cites="R-data.table">[Version 1.14.6\; @R-data.table]</span>, <em>dplyr</em> <span class="citation" data-cites="R-dplyr">[Version 1.1.0\; @R-dplyr]</span>, <em>forcats</em> <span class="citation" data-cites="R-forcats">[Version 1.0.0\; @R-forcats]</span>, <em>ggplot2</em> <span class="citation" data-cites="R-ggplot2">[Version 3.4.1\; @R-ggplot2]</span>, <em>jsonlite</em> <span class="citation" data-cites="R-jsonlite">[Version 1.8.4\; @R-jsonlite]</span>, <em>papaja</em> <span class="citation" data-cites="R-papaja">[Version 0.1.1\; @R-papaja]</span>, <em>purrr</em> <span class="citation" data-cites="R-purrr">[Version 1.0.1\; @R-purrr]</span>, <em>readr</em> <span class="citation" data-cites="R-readr">[Version 2.1.4\; @R-readr]</span>, <em>stringr</em> <span class="citation" data-cites="R-stringr">[Version 1.5.0\; @R-stringr]</span>, <em>tibble</em> <span class="citation" data-cites="R-tibble">[Version 3.1.8\; @R-tibble]</span>, <em>tidyr</em> <span class="citation" data-cites="R-tidyr">[Version 1.3.0\; @R-tidyr]</span>, <em>tidyverse</em> <span class="citation" data-cites="R-tidyverse">[Version 1.3.2\; @R-tidyverse]</span>, <em>tinylabels</em> <span class="citation" data-cites="R-tinylabels">[Version 0.2.3\; @R-tinylabels]</span>, and <em>xtable</em> <span class="citation" data-cites="R-xtable">[Version 1.8.4\; @R-xtable]</span> for all our analyses.</p>
+</section>
+<section id="design" class="level2">
+<h2 class="anchored" data-anchor-id="design">Design</h2>
+<p>This experimental design was a 3x2x2 mixed factorial design. The dependent variable was the number of words recalled in response to the type of task. The variable task consisted of three levels of tasks: semantic task, structural and self-reference task and it was a within subjects factor. The variable recall consisted of recall during encoding and recall after the presentation of 44 words and it was a within subjects factor The variable factor design consisted of blocking and it was between subjects factor as for some subjects, the tasks were mixed while for the other subjects, there were blocks of tasks presented. The cue questions for each task were presented at the top, with the target adjective at the bottom. There a YES and NO button at the bottom.</p>
+</section>
+<section id="procedure" class="level2">
+<h2 class="anchored" data-anchor-id="procedure">Procedure</h2>
+<p>Just Another Tool for Online Studies (JATOS) was used to host this experiment online [cite jatos]. The experiment was programmed using JsPsych (De Leeuw, 2015). The source code for the experiments is available from the project website. There was a consent form presented at the beginning of the experiment. The experiment was divided into two phases. Phase 1 entailed 44 questions and 12 recall boxes in between the cue questions. Phase 2 was comprised of two recall questions. The participant was also presented the basic instructions for each phase and had to press any key to begin the experiment. The cue question appeared after 3000 ms of blank screen. The target adjective and choice buttons appeared after 5000 ms. There were a total of 36 questions presented and each question had to be answered before proceeding to the next question. The cue questions were randomized for some participants as in a semantics cue question could appear after a structural cue question. For some participants, cue questions were presented in blocks for each task.</p>
+<p>In phase 2 of the experiment, participants were instructed to recall all the words they could. After clicking on the button, another box appeared with instructions to spend more time and recall words.The additional recall cue was added to ensure that the participant was able to engage in retrieval practice.</p>
+</section>
+<section id="data-exclusion" class="level2">
+<h2 class="anchored" data-anchor-id="data-exclusion">Data-Exclusion</h2>
+<p>Our experiment was conducted online and it was completed by participants on their web browsers. Although there were specific instructions at the beginning of the experiment, there is a possibility that participants completed and submitted the experiment without following the instructions. Thus, we set a criteria for excluding those participants whose responses indicated that they did not follow the instructions to complete the tasks. During the study phase, part one of the experiment, participants were instructed to click on either, “Yes” or “No” button. There were three conditions: structural, semantics and self. In structural condition, the questions asked if the word displayed on screen was in uppercase or lowercase. We judged the response to the questions in this condition to be the baseline for our criteria as this condition served as the participant’s ability to attend to instructions. We excluded participants who scored lower than 70% on structural judgement questions. A total of 16 participants were excluded. We also checked for response bias as to make sure that the participants were not randomly choosing the Yes or No option as their responses to the question.</p>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="5001_paper_files/figure-html/fig_recall_E1-1.png" class="quarto-discovered-preview-image img-fluid" width="672"></p>
+</div>
+</div>
+<p>We computed proportion correct recalled for each participant in each condition of the design. The proportions were submitted to a 3 (Encoding Question: Case, Semantic, Self) x 2 (Retrieval Practice: Yes, No) x 2 (Question Order: Blocked, Mixed) mixed factorial design with Encoding Question, and Retrieval Practice as within-subject factors, and Question Order as the sole between-subject factor. Mean proportions of correctly recalled words in each condition is shown in Figure <span class="citation" data-cites="fig:fig_recall_E1">@fig:fig_recall_E1</span>. We adopted an alpha criterion of .05 for all statistical tests.</p>
+<p>The retrieval practice effect was the only main effect to reach significance, <span class="math inline">\(F(1, 32) = 5.30\)</span>, <span class="math inline">\(p = .028\)</span>, <span class="math inline">\(\hat{\eta}^2_G = .008\)</span>, 90% CI <span class="math inline">\([.000, .124]\)</span>. Mean proportion recall was lower for items that did not receive retrieval practice (M = 0.259, SEM = 0.035), compared to items that did receive retrieval practice (M = 0.324, SEM = 0.036). No other main effects or interactions reached significance.</p>
+<p>For completeness we also report results from performance in the encoding phase. During the encoding phase participants attempted to immediately recall half of the words following the primary judgment. We computed proportion of correctly recalled words for each participant separately in each encoding question condition. These means were submitted to a one-way repeated measures ANOVA, with question type as the sole factor. Mean proportion correctly recalled was 0.772 in the case judgment, 0.779 in the semantic judgment, and 0.846 in the self-reference condition; <span class="math inline">\(F(2, 66) = 1.39\)</span>, <span class="math inline">\(p = .255\)</span>, <span class="math inline">\(\hat{\eta}^2_G = .017\)</span>, 90% CI <span class="math inline">\([.000, .079]\)</span>.</p>
+</section>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
+<p>Our results did not support our either hypothesis and in fact participants remembered less words when they had retrieval practice during the study. We also failed to replicate the main findings of <span class="citation" data-cites="rogers_self-reference_1977">[@rogers_self-reference_1977]</span>’s experiment in which participants recalled more words in the self-relevant tasks. One of the reasons, participants recalled less words even when they had the opportunity to practice the recall of target words could be that the effects of practice are beneficial for long term retention. In their experiment, <span class="citation" data-cites="roediger_iii_test-enhanced_2006">[@roediger_iii_test-enhanced_2006]</span> found that students recalled more units after 5 minutes of studying in comparison to students who had studied and been tested during the sessions however in contrast, students in “study,retest” condition recalled more word later on after a week. We infer that if we had given more time to participants to recall word in phase 2, the delay in time would have produced different results than the current results. However, it is also possible that the participants misunderstood that the instructions in part 2 of the experiment asked them to recall all the words, including the ones they had been tested for during the study. This is a possible reason why participants typed fewer words in the phase 2 recall. Our sample size was 50 was further reduced to 34 after the exclusion of 16 participants who were found to have been not following the instructions in the case judgment condition. We also infer that the presence of the self-reference effect in the no-retrieval condition might have as well been a noise given that the self reference effect was not observed in the no retrieval practice condition. Future research will include Brooklyn College students in exchange for a credit as to ensure that participants are following the instructions.Furthermore, for reasons difficult to explain, it has been noted that the SRE is larger in comparison to semantic tasks in undergraduate populations <span class="citation" data-cites="symons_self-reference_1997">[@symons_self-reference_1997]</span>. It is also possible that individuals in our small sample size did not have consistent well-structure self-schema as it has been shown that depressed subjects perform poorly on self-referent tasks in compariosn to non-depressed subjects <span class="citation" data-cites="davis_self-reference_1979">[@davis_self-reference_1979]</span>.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" data-custom-style="Bibliography" role="list">
+
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

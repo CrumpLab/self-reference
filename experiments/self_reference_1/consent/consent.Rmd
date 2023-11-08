@@ -1,0 +1,66 @@
+---
+title: "Consent"
+output: 
+  jspsychr::basic_html:
+    css: NULL
+    self_contained: yes
+    theme: null
+    toc: no
+    cold_folding: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<div style = "text-align:left; 
+margin-left:15%;
+margin-right:15%;
+margin-top:5%;
+margin-bottom:5%;">
+
+<div style = "
+text-align:center;
+">
+**THE CITY UNIVERSITY OF NEW YORK **
+
+*Brooklyn College of CUNY*
+
+*Department of Psychology*
+
+**ORAL AND INTERNET-BASED INFORMED CONSENT **
+
+</div>
+
+**Title of Research Study:** Cognitive processes in attention and memory
+
+**Principal Investigator:**	Matthew Crump, Ph.D. – Associate Professor
+
+-----
+
+You are being asked to participate in this research study because you are over 18 years of age. The purpose of this research study is to gain more knowledge about the cognitive processes involved in attention and memory.
+
+- If you agree to participate, we will ask you to complete a computerized task involving the following: While seated at a computer view a series of shapes, letters, neutral pictures, or other symbols, and be asked to make responses about the stimuli on a computer keyboard. More detailed task instructions are provided to you in the instruction section.
+- There are no risks for participating in this study beyond those associated with normal computer use. 
+- Although it will not directly benefit you, this study will advance basic science on the cognitive processes involved in attention and memory. 
+- This study does not involve any medical treatment
+- Data records of your performance in the task will be stored indefinitely, and may be shared publicly via online repositories. This study does not collect identifying information, and all data collected will remain anonymous. 
+
+Your participation in this research is voluntary. If you have any questions, you can contact Dr. Matthew Crump by email at  <mcrump@brooklyn.cuny.edu>. If you have any questions about your rights as a research participant or if you would like to talk to someone other than the researchers, you can contact CUNY Research Compliance Administrator at 646-664-8918 or <HRPP@cuny.edu>. 
+
+
+<div style = "
+text-align:center;
+">
+
+<button type="button" id="accept" 
+class="jspsych-btn">Accept</button>
+
+<button type="button" id="decline" 
+class="jspsych-btn">Decline</button>
+
+</div>
+
+
+</div>
+

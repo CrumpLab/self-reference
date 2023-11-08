@@ -1,0 +1,33 @@
+---
+title: "Self-reference effect debrief"
+author: "Matt Crump"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, out.width="25%", echo=FALSE, fig.align="center"}
+knitr::include_graphics("imgs/ccp.png")
+```
+
+A major purpose of this study was to replicate the self-reference effect using an online procedure.
+
+This experiment involved two phases. A study phase where you made judgments about words, and a test phase where you were asked to recall as many words as possible. 
+
+The primary independent variable (the manipulation in this experiment) was the type of judgment given to each word in the study phase. All participants were given three different judgments. The letter case judgment required participants to judge whether the target word was presented in upper case. The semantic judgment required participants to judge whether the target word was positive in meaning. Finally, the self-reference judgment required participants to judge whether the target word described themself.
+
+The above manipulation is assumed to influence depth of processing during encoding. In general, the cognitive processing required to judge whether a word is printed in upper or lower case is assumed to be shallow and superficial. Whereas, the cognitive processing required to judge whether a word is positive or negative is assumed to be deeper and more meaningful. The self-reference judgment is assumed to be the deepest level of encoding among our conditions. Based on these assumptions, the prediction is that memory recall will depend on depth of processing. 
+
+After the study phase, participants were asked to recall as many words as possible.
+The dependent variable (or measurement) in this experiment is the number of correctly recalled words. The prediction in this study was that the number of correctly recalled words would increase as a function of depth of encoding. Specifically, words paired with the letter case judgment should be recalled less often than words paired with the semantic judgment. If the self-reference effect replicates, then words in that condition should be recalled at the highest rate.
+
+This study was conducted by the Computational Cognition Lab at Brooklyn College. 
+
+Learn more at <https://crumplab.com>
+
+
+
+
+

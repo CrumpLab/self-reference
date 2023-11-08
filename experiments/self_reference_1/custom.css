@@ -1,0 +1,33 @@
+.study_height {
+  height: 400px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.instruction_display {
+  width: 600px;
+  font-size: 20px;
+  text-align: left;
+}
+
+.debrief_display {
+  width: 75%;
+  font-size: 20px;
+  text-align: left;
+}
+
+#jspsych-html-typing-response-display {
+  font-size: 20px;
+  line-height: 1.6em;
+  width: 600px;
+  text-align: left;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+}
+
+.jspsych-btn {
+  margin: 20px;
+  font-size: 30px;
+}

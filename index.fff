@@ -1,0 +1,38 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h!]
+\caption{}
+\label{predictions}
+\includegraphics[width=6.5 in]{index_files/figure-pdf/predictions-1.pdf}
+
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h!]
+\caption{}
+\label{E1Bresults}
+\includegraphics[width=6.5 in]{index_files/figure-pdf/E1Bresults-1.pdf}
+
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h!]
+\caption{}
+\label{E1Cresults}
+\includegraphics[width=6.5 in]{index_files/figure-pdf/E1Cresults-1.pdf}
+
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h!]
+\caption{}
+\label{combined}
+\includegraphics[width=6.5 in]{index_files/figure-pdf/combined-1.pdf}
+
+\end{figure*}

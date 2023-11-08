@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="author" content="Matt Crump" />
+<title>DF3</title>
+<link rel="stylesheet" href="css/custom.css" />
+<link rel="stylesheet" href="jspsych-6.3.1/css/jspsych.css" />
+<script src="E3_files/header-attrs-2.13/header-attrs.js"></script>
+</head>
+<body>
+<script src="stimlist.js"></script>
+<script src="jatos.js"></script>
+<script src="jspsych-6.3.1/jspsych.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+<script src="consent/jspsych-external-html2.js"></script>
+<script src="custom_plugins/jspsych-html-keyboard-response-feedback.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-external-html.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-html-button-response.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-html-slider-response.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-image-keyboard-response.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-survey-html-form.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+<script src="jspsych-6.3.1/plugins/jspsych-video-button-response.js"></script>
+<script type="text/javascript">
+/* Experimental design construction
+Generate study and test timeline variables */
+
+var num_categories = 5;
+var num_pictures = 12;
+
+/*filter by object property 
+split images into all indoor and outdoor*/
+var all_indoor = all_images.filter(x => x.category_type === "indoor");
+var all_outdoor = all_images.filter(x => x.category_type === "outdoor");
+
+/*get distinct indoor and outdoor categories*/
+var indoor_categories = [...new Set(all_indoor.map(x => x.category))];
+var outdoor_categories = [...new Set(all_outdoor.map(x => x.category))];
+
+/*randomize and choose num_categories*2 for each*/
+indoor_categories = jsPsych.randomization.shuffle(indoor_categories).slice(0,num_categories*2);
+outdoor_categories = jsPsych.randomization.shuffle(outdoor_categories).slice(0,num_categories*2);
+
+/* assign categories to study and test conditions*/
+var study_indoor = indoor_categories.slice(0,num_categories);
+var study_outdoor = outdoor_categories.slice(0,num_categories);
+var novel_indoor = indoor_categories.slice(num_categories,indoor_categories.length);
+var novel_outdoor = outdoor_categories.slice(num_categories,outdoor_categories.length);
+
+/* create pools of novel items for indoor and outdoor categories*/
+
+var novel_indoor_pics = [];
+for (const i of novel_indoor){
+  let temp_images = all_images.filter(x => x.category === i);
+  let random_select = jsPsych.randomization.shuffle(Array(temp_images.length).fill().map((element, index) => index-1 + 1)).slice(0,num_pictures/2);
+  novel_indoor_pics.push(random_select.map(x=>temp_images[x]));
+}
+novel_indoor_pics = jsPsych.randomization.shuffle(novel_indoor_pics.flat());
+
+var novel_outdoor_pics = [];
+for (const i of novel_outdoor){
+  let temp_images = all_images.filter(x => x.category === i);
+  let random_select = jsPsych.randomization.shuffle(Array(temp_images.length).fill().map((element, index) => index-1 + 1)).slice(0,num_pictures/2);
+  novel_outdoor_pics.push(random_select.map(x=>temp_images[x]));
+}
+novel_outdoor_pics = jsPsych.randomization.shuffle(novel_outdoor_pics.flat());
+
+/* create study pools and exemplar test pools*/
+
+var study_indoor_pics = [];
+var exemplar_indoor_pics = [];
+for (const i of study_indoor){
+  let temp_images = all_images.filter(x => x.category === i);
+  let random_select = jsPsych.randomization.shuffle(Array(temp_images.length).fill().map((element, index) => index-1 + 1)).slice(0,num_pictures+(num_pictures/2));
+  study_indoor_pics.push(random_select.slice(0,num_pictures).map(x=>temp_images[x]));
+  exemplar_indoor_pics.push(random_select.slice(num_pictures,random_select.length).map(x=>temp_images[x]));
+}
+study_indoor_pics = study_indoor_pics.flat();
+exemplar_indoor_pics = exemplar_indoor_pics.flat();
+
+var study_outdoor_pics = [];
+var exemplar_outdoor_pics = [];
+for (const i of study_outdoor){
+  let temp_images = all_images.filter(x => x.category === i);
+  let random_select = jsPsych.randomization.shuffle(Array(temp_images.length).fill().map((element, index) => index-1 + 1)).slice(0,num_pictures+(num_pictures/2));
+  study_outdoor_pics.push(random_select.slice(0,num_pictures).map(x=>temp_images[x]));
+  exemplar_outdoor_pics.push(random_select.slice(num_pictures,random_select.length).map(x=>temp_images[x]));
+}
+study_outdoor_pics = study_outdoor_pics.flat();
+exemplar_outdoor_pics = exemplar_outdoor_pics.flat();
+
+/* pair each study item with an exemplar or novel test item 
+write indoor list
+*/
+
+main_list = [];
+var main_list_counter = 0;
+var exemplar_counter = 0;
+var novel_counter = 0;
+var study_item = {};
+var test_item = {};
+for(i=0; i<study_indoor_pics.length; i++){
+ study_item = study_indoor_pics[i];
+ study_item["item_type"] = "study";
+ 
+ if(main_list_counter < num_pictures/2){
+  test_item = exemplar_indoor_pics[exemplar_counter];
+  test_item["item_type"] = "exemplar";
+  exemplar_counter++;
+ }
+ if(main_list_counter >= num_pictures/2){
+  test_item = novel_outdoor_pics[novel_counter];
+  test_item["item_type"] = "novel";
+  novel_counter++;
+ }
+ 
+ main_list.push([{study_item,test_item}]);
+
+ main_list_counter++;
+ if(main_list_counter >= num_pictures) main_list_counter = 0;
+}
+
+/* reset and write outdoor list to main */
+
+main_list_counter = 0;
+exemplar_counter = 0;
+novel_counter = 0;
+study_item = {};
+test_item = {};
+
+for(i=0; i<study_outdoor_pics.length; i++){
+ study_item = study_outdoor_pics[i];
+ study_item["item_type"] = "study";
+ 
+ if(main_list_counter < num_pictures/2){
+  test_item = exemplar_outdoor_pics[exemplar_counter];
+  test_item["item_type"] = "exemplar";
+  exemplar_counter++;
+ }
+ if(main_list_counter >= num_pictures/2){
+  test_item = novel_indoor_pics[novel_counter];
+  test_item["item_type"] = "novel";
+  novel_counter++;
+ }
+ 
+ main_list.push([{study_item,test_item}]);
+
+ main_list_counter++;
+ if(main_list_counter >= num_pictures) main_list_counter = 0;
+}
+
+/*create timeline variable for encoding phase from main list */
+
+var study_timeline_creation = [];
+var stimulus_presentation_times = [2000,1000,500];
+var stim_time_counter = 0;
+for(i=0; i<main_list.length; i++){
+
+  study_timeline_creation.push({
+    stimulus: main_list[i][0].study_item.file_path,
+    data: main_list[i][0].study_item
+  });
+
+/* encoding instructions will be overwritten */
+  if(i%2 ==0){
+    study_timeline_creation[i].data["encoding_instruction"] = "R";
+  } else {
+    study_timeline_creation[i].data["encoding_instruction"] = "F";
+  }
+  
+  study_timeline_creation[i].data["experiment_phase"] = "study";
+  study_timeline_creation[i].data["stimulus_time"] = stimulus_presentation_times[stim_time_counter];
+  stim_time_counter++;
+  if(stim_time_counter > 2) {stim_time_counter = 0;}
+}
+
+/* block stimulus encoding time and randomize picture order*/
+
+var study500 = study_timeline_creation.filter(eachObj => eachObj.data.stimulus_time === 500);
+study500 = jsPsych.randomization.shuffle(study500);
+var study1000 = study_timeline_creation.filter(eachObj => eachObj.data.stimulus_time === 1000);
+study1000 = jsPsych.randomization.shuffle(study1000);
+var study2000 = study_timeline_creation.filter(eachObj => eachObj.data.stimulus_time === 2000);
+study2000 = jsPsych.randomization.shuffle(study2000);
+
+/* randomize order of blocks */
+var study_timeline = jsPsych.randomization.shuffle([study500,study1000,study2000]);
+
+/* define encoding instructions per trial */
+  /* create list of F/R instructions */
+var sequence_length = 2;
+var num_sequences = 40/sequence_length;
+var encoding_instruction_sequence = "FR".repeat(num_sequences/2).split("");
+var full_sequence = [];
+
+full_sequence.push(jsPsych.randomization.shuffle(encoding_instruction_sequence));
+full_sequence.push(jsPsych.randomization.shuffle(encoding_instruction_sequence));
+full_sequence.push(jsPsych.randomization.shuffle(encoding_instruction_sequence));
+full_sequence = full_sequence.flat();
+  /* loop through timeline and add individual F/R instructions to each trial */
+  
+var trial_cnt = 0;
+var inst_cnt = -1;
+for(i=0; i<study_timeline.length; i++){
+  for(j=0; j<study_timeline[i].length; j++){
+    if (trial_cnt%2 == 0) {
+      inst_cnt++;
+      study_timeline[i][j].data.encoding_instruction = full_sequence[inst_cnt];
+      study_timeline[i][j].data.serial_position = trial_cnt%2;
+    }else{
+      study_timeline[i][j].data.encoding_instruction = full_sequence[inst_cnt];
+      study_timeline[i][j].data.serial_position = trial_cnt%2;
+    }
+    trial_cnt++;
+  }
+}
+
+
+
+
+/*create timeline variable for testing phase from main list */
+
+var test_timeline = [];
+
+for(i=0; i < main_list.length; i++){
+ 
+  let image_position = jsPsych.randomization.shuffle(["S","T"]);
+  let correct_position = "";
+  if(image_position[0]=="S"){
+      correct_position = "1";
+      } else {
+      correct_position = "2";
+      };
+  if(image_position[0] == "S"){
+    test_timeline.push({
+    stimulus: "<div> <img src ='" + main_list[i][0].study_item.file_path + " '> <img src = '" + main_list[i][0].test_item.file_path + "'> </div>"
+  })
+  } else {
+    test_timeline.push({
+    stimulus: "<div> <img src ='" + main_list[i][0].test_item.file_path + " '> <img src = '" + main_list[i][0].study_item.file_path + "'> </div>"
+  })
+  }
+  
+  test_timeline[i]["data"] = {
+    left_image_type: image_position[0],
+    right_image_type: image_position[1],
+    correct_choice: correct_position,
+    encoding_instruction: main_list[i][0].study_item.encoding_instruction,
+    encoding_stimulus_time: main_list[i][0].study_item.stimulus_time,
+    test_condition : main_list[i][0].test_item.item_type,
+    study_item_image_name:  main_list[i][0].study_item.image_name,
+    study_item_category:  main_list[i][0].study_item.category,
+    study_item_category_type:  main_list[i][0].study_item.category_type,
+    study_item_item_type:  main_list[i][0].study_item.item_type,
+    test_item_image_name:  main_list[i][0].test_item.image_name,
+    test_item_category:  main_list[i][0].test_item.category,
+    test_item_category_type:  main_list[i][0].test_item.category_type,
+    test_item_item_type:  main_list[i][0].test_item.item_type,
+    experiment_phase: "test"
+  };
+}
+
+/* Get images for preload */
+
+var image_list = [];
+for(i=0; i<main_list.length; i++){
+  image_list.push(main_list[i][0].study_item.file_path);
+  image_list.push(main_list[i][0].test_item.file_path);
+}
+
+/*
+A helpful website with tricks for js
+http://learnjsdata.com/
+*/
+
+</script>
+<script type="text/javascript">
+
+
+/* Run Experiment
+Define jsPsych plugins
+Initialize and run
+*/
+
+var rand_subject_id = jsPsych.randomization.randomID(16);
+// add the ID to the data for all trials
+jsPsych.data.addProperties({ID: rand_subject_id});
+
+
+/* experiment parameters */
+
+var runshort = false;
+if(runshort == true){
+  study_timeline = study_timeline.slice(0,10);
+  test_timeline = test_timeline.slice(0,10);
+}
+
+var reps_per_trial_type = 1;
+
+/* define plugins */
+
+var preload = {
+  type: 'preload',
+  images: image_list
+}
+
+var welcome = {
+  type: "external-html",
+  url: 'consent/welcome.html',
+  cont_btn: "continue"
+};
+
+var consent = {
+  type: "external-html2",
+  url: 'consent/consent.html',
+  cont_btn: ["accept","decline"],
+  on_finish: function(data){
+    if(data.response == "decline"){
+      jatos.abortStudy('Thank you for considering participation.');
+    }
+  }
+};
+
+/* Demographics */
+
+var demographics = {
+  type: 'survey-html-form',
+  preamble: `<p>We are collecting basic demographic information as a part of this study</p>
+  <p>Please answer the following questions </p>`,
+  html: `<label for="age">Age (enter or select a number):</label>
+<input type="number" id="age" name="age" min="1" max="100" />
+<br>
+<label for="sex-select">What is your sex?</label>
+<select name="sex" id="sex-select">
+    <option value="">choose</option>
+    <option value="female">Female</option>
+    <option value="male">Male</option>
+</select>
+<br>
+<label for="hand-select">What is your handedness?</label>
+<select name="hand" id="hand-select">
+    <option value="">choose</option>
+    <option value="Left">Left</option>
+    <option value="Right">Right</option>
+    <option value="Both">Both</option>
+</select>
+<br>
+<label for="vision-select">How is your vision?</label>
+<select name="vision" id="vision-select">
+    <option value="">choose</option>
+    <option value="Normal">Normal vision</option>
+    <option value="Corrected">Corrected-to-normal vision</option>
+    <option value="Impaired">Impaired vision</option>
+</select>
+<br>
+<label for="english-select">What is your English ability?</label>
+<select name="english" id="english-select">
+    <option value="">choose</option>
+    <option value="First">First-language</option>
+    <option value="Second">Second-language</option>
+    <option value="None">No-English ability</option>
+</select>
+<br>
+<p> Thank you, press continue </p>
+<br><br>`,
+  autofocus: 'test-resp-box'
+};
+
+var movie_instructions = {
+  type: 'video-button-response',
+  stimulus: [
+    'consent/imgs/DF_Movie.mp4'
+  ],
+  width: 700,
+  choices: ['Next'],
+  prompt: `<p> 2 minute video explaining the task.</p>
+           <p> Press button to continue after video </p>`,
+  response_allowed_while_playing: false
+}
+
+var study_instructions = {
+  type: "html-keyboard-response",
+  stimulus: `
+  <h2> Part I Instructions </h2>
+  <p> You will be shown two pictures at a time</p>
+  <p> After each set you will be asked to REPLAY (in your mind) or FORGET the pictures </p>
+  <p> There are 60 sets of pictures </p>
+  <p> Part I takes about 8-10 minutes and requires your full attention</p>
+  <p> Press any key to begin </p>
+  `,
+  post_trial_gap: 0
+};
+
+var test_instructions = {
+  type: "html-keyboard-response",
+  stimulus: `
+  <h2> Memory Test </h2>
+  <p> You will be shown two pictures at a time </p>
+  <p> One picture was shown before and the other was not </p>
+  <p> Choose the picture that was shown as best you can </p>
+  <p> This phase takes about 5 minutes </p>
+  <p> Press any key to begin</p>
+  `,
+  post_trial_gap: 0
+};
+
+var fixation = {
+  type: 'html-keyboard-response',
+  stimulus: function(){
+    var data = jsPsych.timelineVariable('data', true);
+    if (data.serial_position == 0){
+    var html = '<div style="font-size:60px;">+</div>';
+    return html;
+    }else{
+    var html = '<p></p>';
+    return html;
+    }
+    },
+  choices: jsPsych.NO_KEYS,
+  trial_duration: function(){
+    var data = jsPsych.timelineVariable('data', true);
+    if (data.serial_position == 0){
+    return 1000;
+    }else{
+    return 0;
+    }
+    },
+};
+
+var ISI = {
+  type: 'html-keyboard-response',
+  stimulus: '<p></p>',
+  choices: jsPsych.NO_KEYS,
+  trial_duration: 500,
+};
+
+var encoding_image = {
+  type: 'image-keyboard-response',
+  stimulus_height: 500,
+  trial_duration: function(){
+      var data = jsPsych.timelineVariable('data', true);
+      return data.stimulus_time;
+     },
+  choices: jsPsych.NO_KEYS,
+  stimulus: jsPsych.timelineVariable('stimulus'),
+  data: jsPsych.timelineVariable('data'),
+};
+
+var encoding_cue = {
+  type: 'html-keyboard-response-feedback',
+  stimulus: function(){
+    var data = jsPsych.timelineVariable('data', true);
+    if (data.serial_position == 1){
+      /*var html='<div style="font-size:60px;">'+ data.encoding_instruction + '</div>';
+      return html;*/
+      if (data.encoding_instruction == "F"){
+        var html=`<div style="font-size:40px;"> 
+        <p> <b>FORGET</b> the pictures. </p> 
+        </div>`;
+        return html;
+        }else {
+        var html=`<div style="font-size:40px;"> 
+        <p> <b>REPLAY</b> the pictures in your mind. </p> 
+        </div>`;
+        return html;
+
+        }
+    } else {
+      var html = "<p></p>";
+      return html;
+    }
+  },
+  choices: jsPsych.NO_KEYS,
+  trial_duration: function(){
+    var data = jsPsych.timelineVariable('data', true);
+    if (data.serial_position == 1){
+    return 6000;
+    } else {
+    return 0;
+    }
+  },
+  response_ends_trial: false
+};
+
+/*
+var encoding_cue_feedback = {
+  type: 'html-keyboard-response',
+  stimulus: function(){
+    // Feedback about not responding to instruction cue
+    stim = "<p></p>";
+    var last_trial= jsPsych.data.get().last(1).values()[0];
+    if (last_trial.serial_position == 1){
+      if(last_trial.correct == false){
+        stim = "<p>Oops, wrong button</p>";
+      }
+      if(last_trial.response == null){
+        stim = "<p>Press R for Remember the picture <br> F for Forget the picture</p>";
+      }
+      return stim;
+    } else {
+      return stim;
+    }
+    },
+  trial_duration: function(){
+    var last_trial = jsPsych.data.get().last(1).values()[0];
+     if (last_trial.serial_position == 1){
+      if(last_trial.correct == false || last_trial.response == null ) {
+        return 1000;
+      } else {
+        return 0;
+      }
+     } else {
+        return 0;
+     }
+}
+};
+
+*/
+
+var encoding_judgment = {
+  type: 'html-slider-response',
+  stimulus: function(){
+    var data = jsPsych.timelineVariable('data', true);
+    if (data.serial_position == 1){
+        var html= `Rate how well you were able to Forget or Replay the pictures`;
+        return html;
+    } else {
+      var html = "<p></p>";
+      return html;
+    }
+  },
+  require_movement: false,
+  stimulus_duration: function(){
+    var data = jsPsych.timelineVariable('data', true);
+    if (data.serial_position == 1){
+      return null;
+      } else {
+      return 0;
+      }
+},
+  trial_duration: function(){
+    var data = jsPsych.timelineVariable('data', true);
+    if (data.serial_position == 1){
+      return null;
+      } else {
+      return 0;
+      }
+},
+  labels: ['100% Forgot', '50% Forgot' ,'Neutral', '50% Replayed' ,'100% Replayed'],
+  prompt: "<p>Estimate as best you can by moving the scroll bar</p>",
+  data: jsPsych.timelineVariable('data')
+}
+
+var encoding_phase_1 = {
+  timeline: [fixation, encoding_image, ISI, encoding_cue, encoding_judgment],
+  timeline_variables: study_timeline[0]
+  /*sample: {type: 'fixed-repetitions', size: reps_per_trial_type}*/
+};
+
+var encoding_phase_2 = {
+  timeline: [fixation, encoding_image, ISI, encoding_cue, encoding_judgment],
+  timeline_variables: study_timeline[1]
+  /*sample: {type: 'fixed-repetitions', size: reps_per_trial_type}*/
+};
+
+var encoding_phase_3 = {
+  timeline: [fixation, encoding_image, ISI, encoding_cue, encoding_judgment],
+  timeline_variables: study_timeline[2]
+  /*sample: {type: 'fixed-repetitions', size: reps_per_trial_type}*/
+};
+
+var testing_phase = {
+  timeline: [fixation, {
+    type: 'html-button-response',
+    choices: ["Left","Right"],
+    prompt: "<p> Choose the picture that was shown before </p>",
+    trial_duration: null,
+    response_ends_trial: true,
+    stimulus: jsPsych.timelineVariable('stimulus'),
+    data: jsPsych.timelineVariable('data'),
+    on_finish: function(data){
+      var correct = false;
+      if(data.response != null){
+        if (data.response == 0 && data.correct_choice == 1){
+          correct = true;
+        }
+        if (data.response == 1 && data.correct_choice == 2){
+          correct = true;
+        }
+      }
+      data.correct = correct;
+    }
+  },{
+  type: 'html-keyboard-response',
+  stimulus: function(){
+    // The feedback stimulus
+    var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+    if(last_trial_correct){
+      return "<p>Correct!</p>";
+    } else {
+      return "<p>Incorrect</p>";
+    }
+  },
+  trial_duration: 500
+}],
+  timeline_variables: test_timeline,
+  sample: {type: 'fixed-repetitions', size: reps_per_trial_type}
+};
+
+/* task questions and hit feedback */
+
+var end_task_questions = {
+      type: "survey-text",
+      preamble: "Thank you for participating! Please answer the following questions in a sentence or two. In the first part of this task, you were asked to replay some pictures and forget other pictures",
+      questions:[
+      {prompt: 'Did you find it easy or difficult to replay pictures in your mind?', rows: 5},
+      {prompt: 'Did you find it easy or difficult to forget pictures?', rows: 5},
+      {prompt: 'If you would like to give us additional feedback, please answer here', rows: 5}
+      ]
+    };
+
+
+var debrief_mturk = {
+      type: "external-html",
+      url: 'consent/debrief_mturk.html',
+      cont_btn: "continue",
+      on_start:  function() {
+        var resultJson = jsPsych.data.get().json();
+        jatos.submitResultData(resultJson);
+     }
+    };
+
+/*push to timeline*/
+
+var timeline = [];
+
+timeline.push(welcome);
+timeline.push(preload);
+timeline.push(consent);
+timeline.push(demographics);
+/*timeline.push(movie_instructions);*/
+timeline.push(study_instructions);
+timeline.push(encoding_phase_1);
+timeline.push(encoding_phase_2);
+timeline.push(encoding_phase_3);
+timeline.push(test_instructions);
+timeline.push(testing_phase); 
+timeline.push(end_task_questions);
+timeline.push(debrief_mturk);
+
+/* Run */
+
+var run_simulation = false;
+var run_jatos = true;
+
+if(run_jatos === true){
+  jatos.onLoad(function() {
+  
+    /* check for SONA system participant */
+    if (window.jatos && jatos.urlQueryParameters.SONA_ID) {
+        console.log('Sona information is available');
+        sona_participant_id = jatos.urlQueryParameters.SONA_ID;
+        jsPsych.data.addProperties({ID: sona_participant_id});
+    } else {
+        console.log('Sona information is not available (setting value to -1)');
+        sona_participant_id = -1;
+    }
+    console.log('sona_participant_id = ' + sona_participant_id);
+
+  
+    jsPsych.init({
+        timeline: timeline,
+        show_progress_bar: true,
+        on_finish: function() {
+          var resultJson = jsPsych.data.get().json();
+          
+          /*PermaLink save and return */
+          if(sona_participant_id == -1){
+            jatos.submitResultData(resultJson, jatos.endStudyAndRedirect("https://www.crumplab.com/PatrickHonorsThesis/articles/Experiments.html"));
+          }
+          
+          /*Credit SONA system participant */
+          if(sona_participant_id != -1){
+           jatos.submitResultData(resultJson,jatos.endStudyAndRedirect("https://brooklyncollege.sona-systems.com/webstudy_credit.aspx?experiment_id=439&credit_token=796bf56490554454ae5aaddd5f4c9e1d&survey_code="+sona_participant_id));
+          }
+        },
+        on_trial_start: function(trial) {
+          if(run_simulation == true){
+            trial.trial_duration = 0;
+          }
+      }
+      });
+  });
+} else {
+  jsPsych.init({
+      timeline: timeline,
+      on_finish: function() {
+      jsPsych.data.displayData();
+      },
+      on_trial_start: function(trial) {
+        if(run_simulation == true){
+          trial.trial_duration = 0;
+        }
+    }
+    });
+}
+
+</script>
+</body>
+</html>

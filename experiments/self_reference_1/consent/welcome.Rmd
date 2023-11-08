@@ -1,0 +1,25 @@
+---
+title: "Welcome"
+author: "Author"
+output: 
+  jspsychr::basic_html:
+    css: NULL
+    self_contained: yes
+    theme: null
+    toc: no
+    cold_folding: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, out.width="25%", echo=FALSE, fig.align="center"}
+knitr::include_graphics("imgs/ccp.png")
+```
+
+Welcome, this experiment requires your full attention for approximately 20 minutes.
+
+Continue to consent form and instructions
+
+<button type="button" id="continue" class="jspsych-btn">Continue</button>

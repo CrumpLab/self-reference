@@ -1,0 +1,62 @@
+---
+title: "Experiment 1A: Amazon Turk Master's Participants"
+author: 
+  - Matt Crump
+  - Shifa Maqsood
+abstract: "This is a reproducible analysis script for Experiment 1A."
+---
+
+```{r, include=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE,
+                      eval = TRUE)
+```
+
+Data collected 4/19/23
+
+Data were not usable due to most participants not completing the task. Participants were recruited from Amazon's Mechanical Turk with minimal restrictions. The data are not included here or analysed further. This script also a generates a prediction graph.
+
+# Load libraries
+
+```{r, eval = TRUE}
+library(dplyr)
+library(tidyverse)
+library(jsonlite)
+library(xtable)
+library(data.table)
+```
+
+# Predictions
+
+```{r}
+
+prediction_graph <- tibble(
+  `Hypothesis` = rep(c("H1: Retrieval Practice \n Improves Recall \n for Case and Semantic","H2: Retrieval Practice \n Improves Recall \n For All"),each=6),
+  `Study Instruction` = factor(rep(c("Case","Semantic","Self","Case","Semantic","Self"),2),
+                                  levels= c("Case","Semantic","Self")),
+  `Retrieval Practice` = rep(rep(c("No Retrieval Practice \n during study \n", "Retrieval Practice \n during study \n"),each =3),2),
+  `Predicted Recall` = c(1,2,3,3,3,3,1,2,3,2,3,4)
+  )
+
+
+ggplot(prediction_graph,aes(x=`Study Instruction`, 
+                            y = `Predicted Recall`, 
+                            fill = `Retrieval Practice`)) +
+  geom_bar(stat="identity", position="dodge", color="black") +
+  facet_wrap(~`Hypothesis`) +
+  ylab("Predicted # Words Recalled") +
+  theme_classic(base_size = 15)
+
+
+```
+
+## save data
+
+```{r}
+save.image("data/E1_A.RData")
+```
+
+
+
+

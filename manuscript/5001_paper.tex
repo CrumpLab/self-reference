@@ -1,0 +1,409 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  man,floatsintext]{apa6}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\HyOrg@maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\keywords{Self Reference Effect, Retrieval}
+\usepackage{csquotes}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Is The Self Reference Effect a Retrieval Practice Phenomenon?},
+  pdfauthor={Shifa Maqsood1},
+  pdflang={en-EN},
+  pdfkeywords={Self Reference Effect, Retrieval},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Is The Self Reference Effect a Retrieval Practice Phenomenon?}
+\author{Shifa Maqsood\textsuperscript{1}}
+\date{}
+
+
+\shorttitle{Self Reference Effect}
+
+\authornote{
+
+This research paper is part one of two-semesters undergraduate honor thesis and is to be submitted to the Department of Psychology in fulfillemnt of the requirments for graduating with Departmental Honors.
+
+Correspondence concerning this article should be addressed to Shifa Maqsood, Postal address. E-mail: \href{mailto:shifa_maqsood@hotmail.com}{\nolinkurl{shifa\_maqsood@hotmail.com}}
+
+}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} Brooklyn College of CUNY}
+
+\abstract{%
+In levels of processing framework, Craik and Tulving (1975)'s experiments results demonstrated that subjects recalled more of the words which were encoded under the semantic tasks than other encoding conditons as semantic tasks require elaborate analysis of stimulus than judging the size of it.In 1977, Rogers et al.~conducted an experiment in which self-reference effect was found to have led to superior recall. Subsequent research on underlying mechanisms of SRE have led to inconclusion. The present study takes a different perspective at why SRE promotes learning and proposes that the SRE effect emerges as a retrieval practice phenomenon as self is frequently engaged to recall information. We hypothesized that if participants pratice recall of the words during study, there will be no difference between the self and other conditions. Our second hypothesis stated that retrieval pratice will only enahnce the existing differences in each conditon. The results revealed that practicing recall does not help produce more words at the end and there was no self reference effect observed in no-recall condition. We infer that if there had been more delay in time, retrieval pratice would have led to superior retention of the stimuli. It is also possible that our sample size was too small and that participants did not follow instructions. Future research will focus on conductitng the experiment on Brooklyn College students.
+}
+
+
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\hypertarget{what-is-self-reference-effect}{%
+\subsection{What is self-reference effect?}\label{what-is-self-reference-effect}}
+
+\emph{The self is a collection of the way we see our world, people and make everyday judgments in the light of our past experiences.} should i delete this? Individuals process information related to one's self and life experiences through an organized cognitive structure called self-schemata which functions as an invariable baseline against processing incoming information and making decisions or predictions about the self in various situations (Markus, 1977). The self has also been included in memory research over the years as a powerful mnemonic device to enhance recall. However,let us trace back to a review of one of the memory frameworks which has been refined and expanded upon for the self-reference phenomena to have been acknowledged as a mnemonic device. One of the earliest approaches to memory divided it into multilevel storage comprising of sensory stores, short-term memory and long term memory (Craik \& Lockhart, 1972). The multistore model approach is neatly divided into boxes in which particular information is stored, for example, in long term memory, mostly semantic memory is stored. However, (Craik \& Lockhart, 1972) proposed that the multistore model of memory does not have satisfactory explanation to the process of memory and proposed that it is more important to view memory in terms of of levels of processing and the when the stimuli is compatible with the present cognitive concepts in mind, they will be encoded more deeply than the stimuli which is not meaningful as it does not align with any cognitive structure. This framework's idea of deeper processing was thus supported by an experiment whose findings confirmed that the semantic tasks yielded far better performance on recall and recognition tests than structural or phonemic tasks. Although their empirical findings also presented that the time spent does not mean better retention but what matters is the the type of task involved in encoding (Craik \& Tulving, 1975). In 1977, (Rogers, Kuiper, \& Kirker, 1977) suggested that self can act as an abstract representation of one's idea of the world which also includes past experiences and can be used to interpret new information, thus the self-reference can be an effective device in encoding of stimulus in an experiment in comparison to semantic tasks. Their results found that self-reference task appeared to be the dominant encoding device in comparison to semantic task during incidental recall in the experiment (Rogers et al., 1977). Furthermore, yes-rated items were recalled more than the words rated as no, and (Rogers et al., 1977) put forward that this view is aligned with the idea that self is a well organized set of traits arranged in a hierarchy in which the traits which fits the person most and is important to them is at the top. The bias for self referent information was further tested by incidental encoding conditions in (Turk, Cunningham, \& Macrae, 2008)`s experiment in which participants were instructed to only judge if the trait adjective was located above or below the cue which could be either self or other. The results showed presence of the self reference effect in incidental condition as well which means that self does not need explicit cues to enhance memory performance. Research involving participants with neurological damage have also showed that in self-imagining encoding condition recall for 16 items improved even after a 30 minute delay (Grilli \& Glisky, 2011). Other than trait adjectives, relating specific episode phrases to one's self has also produced superior recall equivalent to the participant judging if the trait adjectives described them (Bower \& Gilligan, 1979). The involvement of self in our everyday lives was also demonstrated when participants recalled birthdays which were closer to their own birthdays, whether it involved their friends or strangers' birthdays (Kesebir \& Oishi, 2010).
+
+\hypertarget{self-in-the-brain-idk-if-it-is-corny}{%
+\subsection{Self in the brain idk if it is corny}\label{self-in-the-brain-idk-if-it-is-corny}}
+
+Additionally, neuroimaging investigations have also sought out to find brain regions involved in self-referential processing of memory. A meta analysis of a neuroimaging studies involving fMRI has suggested that cortical midline structures are activated in experiments which entailed relating information to one's self.(Northoff et al., 2006) Specifically, (Macrae, Moran, Heatherton, Banfield, \& Kelley, 2004) found that medial prefrontal cortex was activated during processing of self-relevant adjectives and suggests that self-referential memory formation is distinct from semantic encoding of information.
+
+\hypertarget{what-are-the-underlying-mechanisms-of-the-self-reference-effect}{%
+\subsection{What are the underlying mechanisms of the self-reference effect?}\label{what-are-the-underlying-mechanisms-of-the-self-reference-effect}}
+
+However, despite replications of the self-reference emerging as a robust encoding device in incidental recall paradigm, there have not been many conclusive attempts to discover more detailed reasoning underlying the process of the self-reference effect. (Ganellen \& Carver, 1985) hypothesized several mediators for as to the reasons self-reference promotes incidental encoding; they proposed that affect could facilitate deep encoding of traits which relate positively to the schema of one's self.They also proposed that it could also matter how important the word was to subject and thirdly, the level of how distinctive that word is to the subject could also lead to deeper processing. Their findings did show that in in recall subjects were able to recall words that described than more than the words that had referred to others and higher recall for words judged as affirmative. However, none of the mediators were implicated in the interaction with the self-reference effect (Ganellen \& Carver, 1985). There have been other underlying factors proposed to have been supporting the self-reference effect: elaborative processing and organizational processing. In the process of elaboration, the stimulus word is encoded as a reference to the information related to the target word already present in subject's memory which makes it easier to recall as multiple retrieval routes are established for recalling it (Klein \& Loftus, 1988). On the other hand, if the subjects are cued to form associations between words and cluster them under categorical labels, they can later use that process of organization in retrieval. ((Tulving \& Pearlstone, 1966), as mentioned in (Klein \& Loftus, 1988). Their experiment results yielded that it is possible that both elaborative and organizational processes were involved in self-reference yet the study was unable to draw a conclusion about which one produced larger recall. It is also possible that most of the research in regard to processes underlying SRE has been inconsistent because some studies also use descriptive tasks (ex. (Rogers et al., 1977)) while other studies use autobiographical task which allows for retrieval of an autobiographical memory in response to the stimulus word (Klein, Loftus, \& Burton, 1989). As shown by (Klein et al., 1989) their experiment demonstrated that subjects recalled more words when they had to do both, autobiographical and descriptive tasks in contrast to two of the same tasks in a row.
+
+\hypertarget{coould-the-self-reference-effect-be-a-retrieval-practice-phenomemon}{%
+\subsection{Coould the Self-Reference Effect be a retrieval practice phenomemon?}\label{coould-the-self-reference-effect-be-a-retrieval-practice-phenomemon}}
+
+This was a singular and prevalent perspective of viewing the phenomenon of self-reference effect which is primarily based upon memory as having deeper levels of processing (Craik \& Lockhart, 1972). Operating within this paradigm, (Rogers et al., 1977) and subsequent research experiments have therefore been interested in investigating self-reference effect as a cue to encode stimuli deeply as it enables the person to relate the stimuli to themselves which leads to better retention of it. However, it is possible that during recall, it does not depend on the depth of encoding but rather on the strength of the retrieval cue. Self-reference can be an effective retrieval cue given that in our everyday lives, it is frequently used to recall personal experiences which also means that it is more readily available to be used as mnemonic device rather than the semantics cue. Thus self-reference effect also has the advantage of having been practiced in memory retrieval more than other tasks given its frequent usage. Furthermore, recall failures can also be the result of the inability to retrieve information from long term storage rather than information being lost from long term storage (Buschke, 1974). This reasoning can also be applied to explain the under-performance of mnemonic tasks other than the SRE as it is possible that the information was retained but it was unable to be recalled due to infrequent use of these tasks in retrieval. Given the scant number of research done on retrieval in learning, most theories have therefore focused on searching for ways to enhance encoding information but one theory states that when we retrieve information, we reconstruct what we already know by using the cues to remember (Karpicke, 2012).
+
+\hypertarget{what-is-retrieval-practice-and-how-does-it-improve-memory-performance}{%
+\subsection{What is Retrieval Practice and how does it improve memory performance?}\label{what-is-retrieval-practice-and-how-does-it-improve-memory-performance}}
+
+Retrieval Practice is usually referred to the repeat testing trials on the same material which is to be tested on the final recall trial. A meta-analysis of studies on retrieval practice confirms that the practice tests considerably enhance learning in contrast to restudying the same material. Some studies have suggested the role of elaborative processing in retrieval, that is, that during encoding there are several semantic associations produced in relation to the the target word to aid the recall of the word or elaboration could also produce more retrieval cues for learning (Karpicke \& Smith, 2012). However, (Karpicke \& Smith, 2012) demonstrated in one of their experiments with identical word pairs that retrieval practice does not occur due to elaboration but there are processes which are special to retrieval only.
+
+\hypertarget{role-of-retrieval-practice-in-the-self-reference-effect}{%
+\subsection{Role of Retrieval Practice in the Self-Reference Effect}\label{role-of-retrieval-practice-in-the-self-reference-effect}}
+
+The present study acknowledges that self reference effect has been reliably demonstrated in research, however there has not been much agreement on the factors underlying the occurrence of this phenomenon. Research has heavily focused on the self as a structure interpreting available stimuli against past experiences which can leave a stronger trace in memory. The purpose of this study is to to include a different perspective which takes the importance of retrieval into account as one of the factors for improving recalling. This paper assumes that self-reference effect has emerged strong in free recall experiments since the participant can relate the trait adjectives to themselves using self which repeatedly engages with new information by using retrieval cues. We hypothesize that self will not emerge as a special mnemonic device in retrieval practice condition, as the memory performance will be the same across conditions. Our another hypothesis states that self and other study conditions will improve memory performance but self will remain as the subordinate mnenominc device. The current experiment will be conducted online since majority of these experiments were conducted in laboratory which can often mean that the results obtained in controlled setting could possibly not be applied to in real life. An online version of self-reference paradigm has already replicated the original (Rogers et al., 1977) study and found a strong self reference effect in their online experiment (Bentley, Greenaway, \& Haslam, 2017).
+
+\hypertarget{experiment-1}{%
+\subsection{Experiment 1}\label{experiment-1}}
+
+Experiment 1 will resemble the original (Rogers et al., 1977) experiment in its general outline with major deviations (1) The experiment will include the original three tasks excluding phonemic task (2) The experiment will include free recall test in between the questions as well as the additional final recall cue at the end (3) All questions will contain one target trait-adjective to avoid any potential interference of non-target words.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+\hypertarget{participants.}{%
+\subsection{Participants.}\label{participants.}}
+
+A total of 50 participants were recruited from Amazon's Mechanical Turk. Mean age was 33.90 (range = 25 to 69 ). There were 26 females, and 23 males. There were 42 right-handed participants, and 8 left or both handed participants. 45 participants reported normal vision, and 4 participants reported corrected-to-normal vision. 48 participants reported English as a first language, and NA participants reported English as a second language.
+
+\hypertarget{materials}{%
+\subsection{Materials}\label{materials}}
+
+There were 36 words presented in the experiment. These words were adjectives for personality traits. There were three categories of encoding tasks which were defined as structural, self-reference and phonemic.Half of the words were negative traits and other half were positive traits. It was also ensured that there was an equal ratio of positive and negative words for each encoding/retrieval task. Half of the words in the list were also presented uppercase and half of the words were presented in lowercase. This was done to prevent the participant to discriminate between structural and other tasks in terms of uppercase and lowercase words. The adjectives were retrieved from the standardized pool of 555 personality-trait words. what was the other sourcer for new adjectives?
+
+We used R (Version 4.2.2; R Core Team, 2022) and the R-packages \emph{data.table} (Version 1.14.6; Dowle \& Srinivasan, 2022), \emph{dplyr} (Version 1.1.0; Wickham, François, Henry, Müller, \& Vaughan, 2023), \emph{forcats} (Version 1.0.0; Wickham, 2023), \emph{ggplot2} (Version 3.4.1; Wickham, 2016), \emph{jsonlite} (Version 1.8.4; Ooms, 2014), \emph{papaja} (Version 0.1.1; Aust \& Barth, 2022), \emph{purrr} (Version 1.0.1; Wickham \& Henry, 2023), \emph{readr} (Version 2.1.4; Wickham, Hester, \& Bryan, 2023), \emph{stringr} (Version 1.5.0; Wickham, 2022), \emph{tibble} (Version 3.1.8; Müller \& Wickham, 2022), \emph{tidyr} (Version 1.3.0; Wickham, Vaughan, \& Girlich, 2023), \emph{tidyverse} (Version 1.3.2; Wickham et al., 2019), \emph{tinylabels} (Version 0.2.3; Barth, 2022), and \emph{xtable} (Version 1.8.4; Dahl, Scott, Roosen, Magnusson, \& Swinton, 2019) for all our analyses.
+
+\hypertarget{design}{%
+\subsection{Design}\label{design}}
+
+This experimental design was a 3x2x2 mixed factorial design. The dependent variable was the number of words recalled in response to the type of task. The variable task consisted of three levels of tasks: semantic task, structural and self-reference task and it was a within subjects factor. The variable recall consisted of recall during encoding and recall after the presentation of 44 words and it was a within subjects factor The variable factor design consisted of blocking and it was between subjects factor as for some subjects, the tasks were mixed while for the other subjects, there were blocks of tasks presented. The cue questions for each task were presented at the top, with the target adjective at the bottom. There a YES and NO button at the bottom.
+
+\hypertarget{procedure}{%
+\subsection{Procedure}\label{procedure}}
+
+Just Another Tool for Online Studies (JATOS) was used to host this experiment online {[}cite jatos{]}. The experiment was programmed using JsPsych (De Leeuw, 2015). The source code for the experiments is available from the project website. There was a consent form presented at the beginning of the experiment. The experiment was divided into two phases. Phase 1 entailed 44 questions and 12 recall boxes in between the cue questions. Phase 2 was comprised of two recall questions. The participant was also presented the basic instructions for each phase and had to press any key to begin the experiment. The cue question appeared after 3000 ms of blank screen. The target adjective and choice buttons appeared after 5000 ms. There were a total of 36 questions presented and each question had to be answered before proceeding to the next question. The cue questions were randomized for some participants as in a semantics cue question could appear after a structural cue question. For some participants, cue questions were presented in blocks for each task.
+
+In phase 2 of the experiment, participants were instructed to recall all the words they could. After clicking on the button, another box appeared with instructions to spend more time and recall words.The additional recall cue was added to ensure that the participant was able to engage in retrieval practice.
+
+\hypertarget{data-exclusion}{%
+\subsection{Data-Exclusion}\label{data-exclusion}}
+
+Our experiment was conducted online and it was completed by participants on their web browsers. Although there were specific instructions at the beginning of the experiment, there is a possibility that participants completed and submitted the experiment without following the instructions. Thus, we set a criteria for excluding those participants whose responses indicated that they did not follow the instructions to complete the tasks. During the study phase, part one of the experiment, participants were instructed to click on either, ``Yes'' or ``No'' button. There were three conditions: structural, semantics and self. In structural condition, the questions asked if the word displayed on screen was in uppercase or lowercase. We judged the response to the questions in this condition to be the baseline for our criteria as this condition served as the participant's ability to attend to instructions. We excluded participants who scored lower than 70\% on structural judgement questions. A total of 16 participants were excluded. We also checked for response bias as to make sure that the participants were not randomly choosing the Yes or No option as their responses to the question.
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\begin{figure}
+\centering
+\includegraphics{5001_paper_files/figure-latex/fig-recall-E1-1.pdf}
+\caption{\label{fig:fig-recall-E1}Mean proportion correctly recalled items in each condition.}
+\end{figure}
+
+We computed proportion correct recalled for each participant in each condition of the design. The proportions were submitted to a 3 (Encoding Question: Case, Semantic, Self) x 2 (Retrieval Practice: Yes, No) x 2 (Question Order: Blocked, Mixed) mixed factorial design with Encoding Question, and Retrieval Practice as within-subject factors, and Question Order as the sole between-subject factor. Mean proportions of correctly recalled words in each condition is shown in Figure~\ref{fig:fig-recall-E1}. We adopted an alpha criterion of .05 for all statistical tests.
+
+The retrieval practice effect was the only main effect to reach significance, \(F(1, 32) = 5.30\), \(p = .028\), \(\hat{\eta}^2_G = .008\), 90\% CI \([.000, .124]\). Mean proportion recall was lower for items that did not receive retrieval practice (M = 0.26, SEM = 0.04), compared to items that did receive retrieval practice (M = 0.32, SEM = 0.04). No other main effects or interactions reached significance.
+
+For completeness we also report results from performance in the encoding phase. During the encoding phase participants attempted to immediately recall half of the words following the primary judgment. We computed proportion of correctly recalled words for each participant separately in each encoding question condition. These means were submitted to a one-way repeated measures ANOVA, with question type as the sole factor. Mean proportion correctly recalled was 0.77 in the case judgment, 0.78 in the semantic judgment, and 0.85 in the self-reference condition; \(F(2, 66) = 1.39\), \(p = .255\), \(\hat{\eta}^2_G = .017\), 90\% CI \([.000, .079]\).
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+Our results did not support our either hypothesis and in fact participants remembered less words when they had retrieval practice during the study. We also failed to replicate the main findings of (Rogers et al., 1977)'s experiment in which participants recalled more words in the self-relevant tasks. One of the reasons, participants recalled less words even when they had the opportunity to practice the recall of target words could be that the effects of practice are beneficial for long term retention. In their experiment, (Roediger III \& Karpicke, 2006) found that students recalled more units after 5 minutes of studying in comparison to students who had studied and been tested during the sessions however in contrast, students in ``study,retest'' condition recalled more word later on after a week. We infer that if we had given more time to participants to recall word in phase 2, the delay in time would have produced different results than the current results. However, it is also possible that the participants misunderstood that the instructions in part 2 of the experiment asked them to recall all the words, including the ones they had been tested for during the study. This is a possible reason why participants typed fewer words in the phase 2 recall. Our sample size was 50 was further reduced to 34 after the exclusion of 16 participants who were found to have been not following the instructions in the case judgment condition. We also infer that the presence of the self-reference effect in the no-retrieval condition might have as well been a noise given that the self reference effect was not observed in the no retrieval practice condition. Future research will include Brooklyn College students in exchange for a credit as to ensure that participants are following the instructions.Furthermore, for reasons difficult to explain, it has been noted that the SRE is larger in comparison to semantic tasks in undergraduate populations (Symons \& Johnson, 1997). It is also possible that individuals in our small sample size did not have consistent well-structure self-schema as it has been shown that depressed subjects perform poorly on self-referent tasks in compariosn to non-depressed subjects (Davis, 1979).
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-R-papaja}{}}%
+Aust, F., \& Barth, M. (2022). \emph{{papaja}: {Prepare} reproducible {APA} journal articles with {R Markdown}}. Retrieved from \url{https://github.com/crsh/papaja}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tinylabels}{}}%
+Barth, M. (2022). \emph{{tinylabels}: Lightweight variable labels}. Retrieved from \url{https://cran.r-project.org/package=tinylabels}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bentley_online_2017}{}}%
+Bentley, S. V., Greenaway, K. H., \& Haslam, S. A. (2017). An online paradigm for exploring the self-reference effect. \emph{PLOS ONE}, \emph{12}(5), e0176611. \url{https://doi.org/10.1371/journal.pone.0176611}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bower_remembering_1979}{}}%
+Bower, G. H., \& Gilligan, S. G. (1979). Remembering information related to one's self. \emph{Journal of Research in Personality}, \emph{13}(4), 420--432. \url{https://doi.org/10.1016/0092-6566(79)90005-9}
+
+\leavevmode\vadjust pre{\hypertarget{ref-buschke_spontaneous_1974}{}}%
+Buschke, H. (1974). Spontaneous {Remembering} after {Recall} {Failure}. \emph{Science}, \emph{184}(4136), 579--581. \url{https://doi.org/10.1126/science.184.4136.579}
+
+\leavevmode\vadjust pre{\hypertarget{ref-craik_levels_1972}{}}%
+Craik, F. I. M., \& Lockhart, R. S. (1972). Levels of processing: {A} framework for memory research. \emph{Journal of Verbal Learning and Verbal Behavior}, \emph{11}(6), 671--684. \url{https://doi.org/10.1016/S0022-5371(72)80001-X}
+
+\leavevmode\vadjust pre{\hypertarget{ref-craik_depth_1975}{}}%
+Craik, F. I. M., \& Tulving, E. (1975). Depth of processing and the retention of words in episodic memory. \emph{Journal of Experimental Psychology: General}, \emph{104}(3), 268--294. \url{https://doi.org/10.1037/0096-3445.104.3.268}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-xtable}{}}%
+Dahl, D. B., Scott, D., Roosen, C., Magnusson, A., \& Swinton, J. (2019). \emph{Xtable: Export tables to LaTeX or HTML}. Retrieved from \url{https://CRAN.R-project.org/package=xtable}
+
+\leavevmode\vadjust pre{\hypertarget{ref-davis_self-reference_1979}{}}%
+Davis, H. (1979). \emph{Self-reference and the encoding of personal information in depression {\textbar} {SpringerLink}}. Retrieved from \url{https://link.springer.com/article/10.1007/BF01172724}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-data.table}{}}%
+Dowle, M., \& Srinivasan, A. (2022). \emph{Data.table: Extension of `data.frame`}. Retrieved from \url{https://CRAN.R-project.org/package=data.table}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ganellen_why_1985}{}}%
+Ganellen, R. J., \& Carver, C. S. (1985). Why does self-reference promote incidental encoding? \emph{Journal of Experimental Social Psychology}, \emph{21}(3), 284--300. \url{https://doi.org/10.1016/0022-1031(85)90021-6}
+
+\leavevmode\vadjust pre{\hypertarget{ref-grilli_self-imagination_2011}{}}%
+Grilli, M. D., \& Glisky, E. L. (2011). The {Self}-{Imagination} {Effect}: {Benefits} of a {Self}-{Referential} {Encoding} {Strategy} on {Cued} {Recall} in {Memory}-{Impaired} {Individuals} with {Neurological} {Damage}. \emph{Journal of the International Neuropsychological Society}, \emph{17}(5), 929--933. \url{https://doi.org/10.1017/S1355617711000737}
+
+\leavevmode\vadjust pre{\hypertarget{ref-karpicke_retrieval-based_2012}{}}%
+Karpicke, J. D. (2012). Retrieval-{Based} {Learning}: {Active} {Retrieval} {Promotes} {Meaningful} {Learning}. \emph{Current Directions in Psychological Science}, \emph{21}(3), 157--163. \url{https://doi.org/10.1177/0963721412443552}
+
+\leavevmode\vadjust pre{\hypertarget{ref-karpicke_separate_2012}{}}%
+Karpicke, J. D., \& Smith, M. A. (2012). Separate mnemonic effects of retrieval practice and elaborative encoding. \emph{Journal of Memory and Language}, \emph{67}(1), 17--29. \url{https://doi.org/10.1016/j.jml.2012.02.004}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kesebir_spontaneous_2010}{}}%
+Kesebir, S., \& Oishi, S. (2010). A {Spontaneous} {Self}-{Reference} {Effect} in {Memory}: {Why} {Some} {Birthdays} {Are} {Harder} to {Remember} {Than} {Others}. \emph{Psychological Science}, \emph{21}(10), 1525--1531. \url{https://doi.org/10.1177/0956797610383436}
+
+\leavevmode\vadjust pre{\hypertarget{ref-klein_nature_1988}{}}%
+Klein, S. B., \& Loftus, J. (1988). The nature of self-referent encoding: {The} contributions of elaborative and organizational processes. \emph{Journal of Personality and Social Psychology}, \emph{55}(1), 5--11. \url{https://doi.org/10.1037/0022-3514.55.1.5}
+
+\leavevmode\vadjust pre{\hypertarget{ref-klein_two_1989}{}}%
+Klein, S. B., Loftus, J., \& Burton, H. A. (1989). Two self-reference effects: {The} importance of distinguishing between self-descriptiveness judgments and autobiographical retrieval in self-referent encoding. \emph{Journal of Personality and Social Psychology}, \emph{56}, 853--865. \url{https://doi.org/10.1037/0022-3514.56.6.853}
+
+\leavevmode\vadjust pre{\hypertarget{ref-macrae_medial_2004}{}}%
+Macrae, C. N., Moran, J. M., Heatherton, T. F., Banfield, J. F., \& Kelley, W. M. (2004). Medial {Prefrontal} {Activity} {Predicts} {Memory} for {Self}. \emph{Cerebral Cortex}, \emph{14}(6), 647--654. \url{https://doi.org/10.1093/cercor/bhh025}
+
+\leavevmode\vadjust pre{\hypertarget{ref-markus_self-schemata_1977}{}}%
+Markus, H. (1977). Self-schemata and processing information about the self. \emph{Journal of Personality and Social Psychology}, \emph{35}, 63--78. \url{https://doi.org/10.1037/0022-3514.35.2.63}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tibble}{}}%
+Müller, K., \& Wickham, H. (2022). \emph{Tibble: Simple data frames}. Retrieved from \url{https://CRAN.R-project.org/package=tibble}
+
+\leavevmode\vadjust pre{\hypertarget{ref-northoff_self-referential_2006}{}}%
+Northoff, G., Heinzel, A., Greck, M. de, Bermpohl, F., Dobrowolny, H., \& Panksepp, J. (2006). Self-referential processing in our brain---{A} meta-analysis of imaging studies on the self. \emph{NeuroImage}, \emph{31}(1), 440--457. https://doi.org/\url{https://doi.org/10.1016/j.neuroimage.2005.12.002}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-jsonlite}{}}%
+Ooms, J. (2014). The jsonlite package: A practical and consistent mapping between JSON data and r objects. \emph{arXiv:1403.2805 {[}Stat.CO{]}}. Retrieved from \url{https://arxiv.org/abs/1403.2805}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-base}{}}%
+R Core Team. (2022). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-roediger_iii_test-enhanced_2006}{}}%
+Roediger III, H. L., \& Karpicke, J. D. (2006). Test-enhanced learning: {Taking} memory tests improves long-term retention. \emph{Psychological Science}, \emph{17}(3), 249--255. \url{https://doi.org/10.1111/j.1467-9280.2006.01693.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rogers_self-reference_1977}{}}%
+Rogers, T. B., Kuiper, N. A., \& Kirker, W. S. (1977). Self-reference and the encoding of personal information. \emph{Journal of Personality and Social Psychology}, \emph{35}(9), 677. \url{https://doi.org/10.1037/0022-3514.35.9.677}
+
+\leavevmode\vadjust pre{\hypertarget{ref-symons_self-reference_1997}{}}%
+Symons, C. S., \& Johnson, B. T. (1997). \emph{The {Self}-{Reference} {Effect} in {Memory}: {A} {Meta}-{Analysis}}. \url{https://doi.org/10.1037/0033-2909.121.3.371}
+
+\leavevmode\vadjust pre{\hypertarget{ref-tulving_availability_1966}{}}%
+Tulving, E., \& Pearlstone, Z. (1966). Availability versus accessibility of information in memory for words. \emph{Journal of Verbal Learning and Verbal Behavior}, \emph{5}(4), 381--391. \url{https://doi.org/10.1016/S0022-5371(66)80048-8}
+
+\leavevmode\vadjust pre{\hypertarget{ref-turk_self-memory_2008}{}}%
+Turk, D. J., Cunningham, S. J., \& Macrae, C. N. (2008). Self-memory biases in explicit and incidental encoding of trait adjectives. \emph{Consciousness and Cognition}, \emph{17}(3), 1040--1045. \url{https://doi.org/10.1016/j.concog.2008.02.004}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-ggplot2}{}}%
+Wickham, H. (2016). \emph{ggplot2: Elegant graphics for data analysis}. Springer-Verlag New York. Retrieved from \url{https://ggplot2.tidyverse.org}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-stringr}{}}%
+Wickham, H. (2022). \emph{Stringr: Simple, consistent wrappers for common string operations}. Retrieved from \url{https://CRAN.R-project.org/package=stringr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-forcats}{}}%
+Wickham, H. (2023). \emph{Forcats: Tools for working with categorical variables (factors)}. Retrieved from \url{https://CRAN.R-project.org/package=forcats}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tidyverse}{}}%
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., \ldots{} Yutani, H. (2019). Welcome to the {tidyverse}. \emph{Journal of Open Source Software}, \emph{4}(43), 1686. \url{https://doi.org/10.21105/joss.01686}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-dplyr}{}}%
+Wickham, H., François, R., Henry, L., Müller, K., \& Vaughan, D. (2023). \emph{Dplyr: A grammar of data manipulation}. Retrieved from \url{https://CRAN.R-project.org/package=dplyr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-purrr}{}}%
+Wickham, H., \& Henry, L. (2023). \emph{Purrr: Functional programming tools}. Retrieved from \url{https://CRAN.R-project.org/package=purrr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-readr}{}}%
+Wickham, H., Hester, J., \& Bryan, J. (2023). \emph{Readr: Read rectangular text data}. Retrieved from \url{https://CRAN.R-project.org/package=readr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tidyr}{}}%
+Wickham, H., Vaughan, D., \& Girlich, M. (2023). \emph{Tidyr: Tidy messy data}. Retrieved from \url{https://CRAN.R-project.org/package=tidyr}
+
+\end{CSLReferences}
+
+
+\end{document}

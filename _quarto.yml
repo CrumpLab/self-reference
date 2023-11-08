@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: docs
+  preview:
+    port: 4200
+    browser: true
+    navigate: true
+  render:
+    - "*.qmd"
+    - "*.Rmd"
+    - "!experiments/"
+    - "!manuscript/"
+
+website:
+  title: "self-reference"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Thesis
+      - text: "Supplemental"
+        menu:
+        - text: "Predictions"
+          href: vignettes/data-analysis/E1_A.qmd
+        - text: "E1B Analysis"
+          href: vignettes/data-analysis/E1_B_analysis.qmd
+        - text: "E1C Analysis"
+          href: vignettes/data-analysis/E1_C_analysis.qmd
+        - text: "Combined Analysis"
+          href: vignettes/data-analysis/E1_combined.qmd
+        - text: "Power Analysis"
+          href: vignettes/data-analysis/E1_Power_Analysis.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

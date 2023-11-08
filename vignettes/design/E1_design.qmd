@@ -1,0 +1,121 @@
+---
+title: "E1 Design"
+author: "Matt Crump"
+description: "These are unstructured design notes about our research process. This document contains notes about our stimulus selection and the theoretical motivation behind our primary manipulation."
+bibliography: "references.bib"
+---
+
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
+```
+
+
+## General Background:
+
+Our initial goal was to replicate the self-reference effect [@rogers1977] using an online procedure [see also, @bentleyOnlineParadigmExploring2017]. 
+
+Our pilot work involved obtaining a large list of adjectives for describing personal attributes [@chandler2018], and then implementing a word-selection algorithm to create a stimulus set for a design similar to the one implemented by @rogers1977.
+
+The original Rogers study, and the 2017 replication had questions that were not balanced in terms of general task demands. Some questions involved comparison between two words, and others did not. For example, the semantic comparison question could be "Does the following word mean 'old'? IMMATURE. Whereas an example self-reference question was "Would you use the following word to describe yourself? smug". The semantics question presents two words on the trial, whereas the self-reference question presents only one. 
+
+We considered how to create balanced designs in our pilot work where every target word was presented with a comparison word. However, after further consideration, we opted to present a single target word on each trial and omitted all comparison words. 
+
+## Theoretical background
+
+The self-reference effect [@rogers1977] is often explained in terms of levels of processing. On this view, the recall advantage for self-referenced items is due to "deeper" processing during encoding. For example, by thinking about how a word may or may not describe oneself, the word could be associatively connected to personal experiences forming a narrative. This process of forming meaningful connections between a word and personal experiences during initial encoding could strengthen the memory trace making it easier to recall during the test phase. 
+
+A general theme for this project is to consider a potential role for retrieval processes in mediating the self-reference effect. 
+
+This experiment was designed to test a retrieval practice hypothesis. Retrieval practice occurs when a person attempts to bring a particular concept or word to mind. A practice attempt occurs when a word is successfully brought to mind. Words that have received more prior retrieval practice are assumed to be easier to bring to mind in a later recall test. 
+
+Our hypothesis is that the self-reference condition may prompt people to engage in retrieval practice with target words. Given the prompt, "Would you use the following word to describe yourself?", and the target word, "RESPONSIBLE"; a participant may mentally repeat the question and word as they consider their response (YES/NO). For example, one might ask, "am I responsible?", "does responsible really describe me?", "well, there was that one time I was responsible...". This type of inner monologue provides retrieval practice for the target in word in question, which should enhance their recallability at test.
+
+## Words
+
+We obtained a list of person-descriptive words from [@chandler2018]. The list of words was filtered to exclude any words containing punctuation, and words that we considered derogatory and otherwise objectionable.
+
+
+```{r, eval = FALSE}
+library(dplyr)
+handpicked <- rio::import("handpicked_2.xlsx")
+
+# remove words with dashes and spaces
+handpicked <- handpicked %>%
+  filter(keep == 1,
+         !grepl(" ",Word),
+         !grepl("-",Word),
+         !grepl(" ",related_same),
+         !grepl("-",related_same),
+         !grepl(" ",related_diff),
+         !grepl("-",related_diff)
+         )
+
+handpicked <- handpicked %>%
+  select(Word,likeable_type)
+
+rio::export(handpicked,"large_stimlist.json")
+
+```
+
+Our stimulus set had a total of 375 words. These words were categorized as high versus low likeable [by @chandler2018]. There were 173 high likeable words, and 202 low likeable words. 
+
+
+```{r}
+handpicked <- rio::import("large_stimlist.json")
+
+handpicked %>%
+  group_by(likeable_type) %>%
+  count()
+```
+
+## Questions
+
+Our design had three encoding questions used in prior research [@bentleyOnlineParadigmExploring2017] to vary depth of processing during encoding.
+
+- CASE: Is the following word written in upper case?
+- SEMANTIC: Does the following word have a positive meaning?
+- SELF: Would you use the following word to describe yourself?
+
+We randomly chose 12 unqiue words (6 high, and 6 low likeable) for each of the three conditions (36 words in total). 
+
+Four additional filler items were inserted at the beginnin and end of the encoding phase. 
+
+Half of the subjects were assigned to a blocked condition (blocked by question type), and the other half were assigned to a mixed condition (intermixed questions)
+
+## Primary manipulation
+
+On each trial the question was presented for three seconds, followed by the target word. Participants were asked to response Yes or No to make a case, semantic, or self-reference judgments. 
+
+Importantly, on half of the trials there was an immediate recall task. Participants were presented with a question to recall the immediately preceding word. As a result, participants received retrieval practice during the encoding phase for half of the words in each of the encoding conditions. 
+
+NOTE: the above was not implemented in the design. For each set of 12 words, 4 involved immediate recall and 8 did not.
+
+## Design structure
+
+Encoding Question (Case, Semantic, Self) - within-subject
+Retrieval practice (Yes, No) - within-subject
+Question Order (blocked, mixed) - between-subject
+
+The design was a 3 (Encoding Question: Case, Semantic, Self) x 2 (Retrieval Practice: Yes, No) x 2 (Question Order: Blocked, Mixed) factorial with Encoding Question, and Retrieval as within-subject factors, and Question Order as a between-subject factor.
+
+## Predictions
+
+In the no retrieval practice condition we expected to replicate the standard self-reference effect. Specifically, we expected recall rates to increase with depth encoding, such that recall would be highest in the self-reference condition, and lowest in the case-judgment condition (case < semantic < self).
+
+In the retrieval practice condition we considered two possible outcomes. First, it is possible that participants already engage in retrieval practice (by mentally repeating the word) for words in the self-reference condition; and, that they do not engage in retrieval practice for the case or semantic judgments (which can be answered immediately without mentally repeating the word). In this case, retrieval practice may improve recall for words in the case and semantic conditions compared to the self-reference condition which may already be benefitting from retrieval practice. An outcome could be improved and potentially equivalent recall in all conditions (case = semantic = self). In other words, if the self-reference condition has superior recall rates because of retrieval practice, then we expected that delivering retrieval practice for items in the case and semantic conditions would improve recallability to the level of the self-reference condition.
+
+Another possibility is that retrieval practice benefits recall for all words in all conditions. Here, we might expect a main effect of retrieval practice, and no interaction with the encoding question factor. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,301 @@
+---
+title: "Pilot Work"
+author: Matt Crump
+order: 1
+bibliography: references.bib
+---
+
+Note: This documents contains unstructured notes and code that helped move the project forward at an early stage. At this point our aim was simply to produce an online replication of a design similar to @rogers1977.
+
+The purpose of this vignette is to describe our process for generating stimuli to replicate Experiment 1 from @rogers1977.
+
+## Verbatim method reprint
+
+Below is a verbatim reprint of the original methods. Our goal is to create a conceptually similar list of adjectives.
+
+"The study has two main parts. First, subjects rated 40 adjectives on one of four tasks. This involved presenting a cue question, followed by 1 of the 40 adjectives. Subjects answered yes or no to the cue question as it applied to the adjective. The cue questions, along with the manipulations for each task, are presented in Table 1. After completing the ratings, subjects attempted to recall the adjectives in the second part of the study.
+
+Materials. The main items for this study were 40 adjectives that were deemed appropriate for a self-description task. They were chosen to represent a broad spectrum of possible characteristics and were selected from all of the trait descriptions found in Jackson's (1967) Personality Research Form A Manual. Thirty-eight of the adjectives, selected to be familiar to the subject population, came from this source. Two other adjectives (shy and outgoing) were added to make up the total of 40.
+
+We used Roget's Thesaurus to construct a further set of 40 synonyms for the semantic tasks. The final synonyms chosen represented consensus among the three authors. The phonemic task dictated a second supplementary list of 40 words that rhymed with the main adjective set. The authors generated a set of possible rhyming words, and consensus among ourselves was the final criterion for selection. Most (90%) of these words were adjectives.
+
+A third supplementary list of nonsynonym, nonrhyming words was also required, so that one half of the cue questions could result in a no rating. Kirby and Gardner's (1972) set of adjectives was consulted to derive this list. Again, author consensus regarding the nonrhyming and nonsynonym quality of the adjectives dictated the final list. A set of eight further adjectives and supplementary words was generated to provide buffer items of four ratings each at the beginning and end of the list. These items, which were constant across lists, were not included in the data analysis. This was intended to minimize the effects of primacy and recency in the incidental recall task.
+
+Four lists of adjectives were constructed, such that 10 adjectives in each list were rated under each cue question, and over the four lists, each adjective was rated under each cue question.
+
+To guard against the possibility that wo-rated words are recalled differently than yes-rated words, each of the four lists was reversed to generate eight lists in total. For example, if in a given list, under the structural task, a word appeared in small letters (generating a no response), the reversed list would have the word presented in big letters (generating a yes response). The one exception to this counterbalancing was the self-reference task. Here it was impossible to have experimental control over yes and no responses, since the person's view of self would dictate his or her response."
+
+## Issues
+
+The original study attempted some counterbalancing of words across conditions. Nevertheless, we note the following issues that were not controlled.
+
+1. The structural task and the self-reference task involved presentation of a single word, whereas the rhyming and semantic tasks always involved presentation of two words.
+
+We intend to present two words on each trial, and ask participants to make a yes/no judgment about the first word in relation to the second word. By replacing the phonemic judgment task with a syllable judgment task, we should be able to balance the word pairs across tasks.
+
+One goal is that each target word can be presented in any cue-question condition, and recieve a yes or no answer (except for the self-reference questions which is subject-driven)
+
+## Approach
+
+@chandler2018 published updated likeableness and meaningfulness ratings of 555 person-descriptive words. We obtained the list of words that were published in supplementary materials.
+
+Our plan is to create a table of all unique adjectives with the following structure:
+
+Target word
+Related - Same syllables
+Unrelated -Same syllables
+Related - Different syllables
+Unrelated - Difference syllables
+
+```{r, eval=FALSE}
+library(rio)
+library(dplyr)
+
+t <- rio::import("materials/1-s2.0-S0092656616300848-mmc1.xlsx")
+
+Meaningful <- t %>%
+  filter(`Replication MTurk Meaningfulness M` > 3)
+
+Low_likable <- Meaningful %>%
+  filter(`Replication MTurk Likability M` < 2) %>%
+  mutate(syllables = nsyllable::nsyllable(Word))
+
+High_likable <- Meaningful %>%
+  filter(`Replication MTurk Likability M` > 4 ) %>%
+  mutate(syllables = nsyllable::nsyllable(Word))
+```
+
+
+```{r, eval=FALSE}
+
+low_likeable_list <- list()
+
+for(i in 236:dim(Low_likable)[1]){
+  
+  current_word <- Low_likable$Word[i]
+  current_word <- gsub(" ", "", current_word)
+  
+  current_syllables <- Low_likable$syllables[i]
+  
+  get_similar <- rhymer::get_means_like(word = current_word, return_type = "df", limit = 10)
+  
+  if(!is.null(dim(get_similar))){
+  
+    get_similar <- get_similar %>%
+      mutate(syllables = nsyllable::nsyllable(word))
+    
+    same_syllables <- get_similar %>%
+      filter(syllables == current_syllables)
+    
+    diff_syllables <- get_similar %>%
+      filter(syllables != current_syllables)
+  } else {
+    same_syllables <- NA
+    diff_syllables <- NA
+  }
+  
+  current_list <- list(word = current_word,
+                       syllables = current_syllables,
+                       df_info = Low_likable[i,],
+                       same_syllables = same_syllables,
+                       diff_syllables = diff_syllables
+                       )
+  
+  low_likeable_list[[i]] <- current_list
+  
+}
+
+save.image(file = "stimulus.RData")
+
+```
+
+
+```{r, eval=FALSE}
+
+high_likeable_list <- list()
+
+for(i in 1:dim(High_likable)[1]){
+  
+  current_word <- High_likable$Word[i]
+  current_word <- gsub(" ", "", current_word)
+  
+  current_syllables <- High_likable$syllables[i]
+  
+  get_similar <- rhymer::get_means_like(word = current_word, return_type = "df", limit = 10)
+  
+  if(!is.null(dim(get_similar))){
+  
+    get_similar <- get_similar %>%
+      mutate(syllables = nsyllable::nsyllable(word))
+    
+    same_syllables <- get_similar %>%
+      filter(syllables == current_syllables)
+    
+    diff_syllables <- get_similar %>%
+      filter(syllables != current_syllables)
+  } else {
+    same_syllables <- NA
+    diff_syllables <- NA
+  }
+  
+  current_list <- list(word = current_word,
+                       syllables = current_syllables,
+                       df_info = High_likable[i,],
+                       same_syllables = same_syllables,
+                       diff_syllables = diff_syllables
+                       )
+  
+  high_likeable_list[[i]] <- current_list
+  
+}
+
+save.image(file = "stimulus.RData")
+
+```
+
+```{r, eval=FALSE}
+load("stimulus.RData")
+
+build_low_likeable <- data.frame()
+
+for(i in 1:length(low_likeable_list)){
+  
+  temp_df <- low_likeable_list[[i]]$df_info
+  
+  if(!is.null(dim(low_likeable_list[[i]]$same_syllables))){
+    related_same <- low_likeable_list[[i]]$same_syllables$word[1]
+    related_same_syllables <- low_likeable_list[[i]]$same_syllables$syllables[1]
+  } else {
+    related_same <- NA
+    related_same_syllables <- NA
+  }
+  
+  if(!is.null(dim(low_likeable_list[[i]]$diff_syllables))){
+    related_diff <- low_likeable_list[[i]]$diff_syllables$word[1]
+    related_diff_syllables <- low_likeable_list[[i]]$diff_syllables$syllables[1]
+  } else {
+    related_diff <- NA
+    related_diff_syllables <- NA
+  }
+  
+  temp_df <- temp_df %>%
+    mutate(related_same = related_same,
+           related_same_syllables = related_same_syllables,
+           related_diff = related_diff,
+           related_diff_syllables = related_diff_syllables)
+  
+  build_low_likeable <- rbind(build_low_likeable,temp_df)
+}
+
+build_high_likeable <- data.frame()
+
+for(i in 1:length(high_likeable_list)){
+  
+  temp_df <- high_likeable_list[[i]]$df_info
+  
+  if(!is.null(dim(high_likeable_list[[i]]$same_syllables))){
+    related_same <- high_likeable_list[[i]]$same_syllables$word[1]
+    related_same_syllables <- high_likeable_list[[i]]$same_syllables$syllables[1]
+  } else {
+    related_same <- NA
+    related_same_syllables <- NA
+  }
+  
+  if(!is.null(dim(high_likeable_list[[i]]$diff_syllables))){
+    related_diff <- high_likeable_list[[i]]$diff_syllables$word[1]
+    related_diff_syllables <- high_likeable_list[[i]]$diff_syllables$syllables[1]
+  } else {
+    related_diff <- NA
+    related_diff_syllables <- NA
+  }
+  
+  temp_df <- temp_df %>%
+    mutate(related_same = related_same,
+           related_same_syllables = related_same_syllables,
+           related_diff = related_diff,
+           related_diff_syllables = related_diff_syllables)
+  
+  build_high_likeable <- rbind(build_high_likeable,temp_df)
+}
+
+build_low_likeable <- build_low_likeable %>%
+  mutate(likeable_type = "low")
+
+build_high_likeable <- build_high_likeable %>%
+  mutate(likeable_type = "high")
+
+build_word_set <- rbind(build_low_likeable,build_high_likeable)
+save.image(file = "stimulus.RData")
+
+```
+
+```{r, eval=FALSE}
+library(dplyr)
+library(tidyr)
+load("stimulus.RData")
+     
+filtered_word_set <- build_word_set %>%
+  drop_na(related_same, related_diff) %>%
+  mutate(keep = 1, .before = 1)
+
+rio::export(filtered_word_set,file="handpicked.xlsx")
+```
+
+```{r, eval=FALSE}
+handpicked <- rio::import("handpicked.xlsx")
+
+handpicked <- handpicked %>%
+  filter(keep == 1,
+         !grepl(" ",Word),
+         !grepl("-",Word),
+         !grepl(" ",related_same),
+         !grepl("-",related_same),
+         !grepl(" ",related_diff),
+         !grepl("-",related_diff)
+         )
+
+shuffle_id <- sample(1:dim(handpicked)[1])
+
+unique_list <- data.frame()
+i <- 0
+while(i < max(dim(handpicked)[1])) {
+  i <- i+1
+  t_df <- handpicked[i,]
+  handpicked <- handpicked %>% 
+    filter(Word != t_df$Word,
+           related_same != t_df$Word,
+           related_diff != t_df$Word,
+           Word != t_df$related_same,
+           related_same != t_df$related_same,
+           related_diff != t_df$related_same,
+           Word != t_df$related_diff,
+           related_same != t_df$related_diff,
+           related_diff != t_df$related_diff,
+           )
+  unique_list <- rbind(unique_list,t_df)  
+}
+
+reordered_unique <- unique_list %>%
+  relocate(Word,syllables,
+           related_same,related_same_syllables,
+           related_diff,related_diff_syllables)
+
+rio::export(reordered_unique,file="chosen_unique.xlsx")
+
+```
+
+```{r, eval=FALSE}
+chosen_unique <- rio::import("chosen_unique.xlsx")
+
+chosen_unique <- chosen_unique %>%
+  filter(Keep == 1) %>%
+  select(Word,syllables,related_same,related_same_syllables,related_diff,related_diff_syllables,likeable_type)
+
+rio::export(chosen_unique,file="stimlist.json")
+
+```
+
+
+
+
+

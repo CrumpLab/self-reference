@@ -1,0 +1,21 @@
+.imageright #jspsych-image-keyboard-response-stimulus {
+  position: relative;
+  left: +100%;
+}
+.imageleft #jspsych-image-keyboard-response-stimulus {
+  position: relative;
+  left: -100%;
+}
+
+.jspsych-btn {
+  padding: 20px 20px;
+  font-size: 25px!important;
+  border-color: black!important;
+  border-width: 3px!important;
+}
+
+.instructions {
+  width: 500px;
+  text-align: left;
+  font-size: 20px;
+}

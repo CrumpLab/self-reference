@@ -1,0 +1,79 @@
+---
+title: "Recall data power analysis"
+author: "Matt Crump"
+---
+
+Note this power analysis uses Monte Carlo simulation. The estimates of power will become more stable as the number of simulations are increased. In this case the number of simulations is 200 per experiment. Increasing this number will smooth out the lines in the graph.
+
+```{r}
+library(tidyverse)
+
+# This number came from empirical data
+mean_p_recall_per_cell <- .2
+
+# create a tibble to store simulation results
+sim_data <- tibble()
+
+# simulation parameters
+num_sims <- 200 # number of times to a run a simulated experiment
+number_of_subs <- c(10,20,30,40,50,60,70,80,90,100,150,200)
+effect_sizes <- c(.01,.02,.03,.04,.05,.1,.2)
+
+
+# Loop to run all simulations for every parameter
+for(n in number_of_subs) {
+  print(n) # shows simulation progress in the console
+  
+  for (effect in effect_sizes) {
+    p_vals <-
+      rep(0, num_sims) # initialize variable to store p values from each experiment
+    
+    # run simulated experiments
+    for (reps in 1:num_sims) {
+      # A uses rbinom to simulated how many words a person remembers given the base probability
+      A <-
+        colMeans(replicate(n, rbinom(6, 1, mean_p_recall_per_cell)))
+      
+      # B adds the effect size to the base probability
+      B <-
+        colMeans(replicate(n, rbinom(
+          6, 1, mean_p_recall_per_cell + effect
+        )))
+      
+      # run a t-test to compare whether the two are different
+      t_test <- t.test(A, B, paired = TRUE)
+      
+      # store the p-value in the vector
+      p_vals[reps] <- t_test$p.value
+      
+    }
+    
+    # add the results to a tibble with one row
+    sim_result <- tibble(
+      subs = n,
+      effect_size = effect,
+      rep = reps,
+      prop_p_value = length(p_vals[p_vals < .05]) / num_sims # this is proportion of significant experiments, or power
+    )
+    
+    sim_data <- rbind(sim_data, sim_result)
+  }
+}
+
+# summarize the data for plotting
+sim_data_means <- sim_data %>%
+  mutate(effect_size = as.factor(effect_size)) %>%
+  group_by(subs,effect_size) %>%
+  summarise(mean_proportion = mean(prop_p_value), .groups = 'drop')
+
+# plot the data
+ggplot(sim_data_means,
+       aes(x=subs,
+           y=mean_proportion,
+           group = effect_size,
+           color = effect_size)) +
+  geom_point()+
+  geom_line()+
+  ylab("Proportion of significant experiments (Power)")
+
+```
