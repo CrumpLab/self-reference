@@ -28,7 +28,7 @@ library(data.table)
 # Read the text file from JATOS ...
 read_file('data/E1B_self_reference_deID.JSON') %>%
   # ... split it into lines ...
-  str_split('\n') %>% first() %>%
+  str_split('\n') %>% dplyr::first() %>%
   # ... filter empty rows ...
   discard(function(x) x == '') %>%
   # ... parse JSON into a data.frame
@@ -36,11 +36,15 @@ read_file('data/E1B_self_reference_deID.JSON') %>%
 
 read_file('data/E1C_self_reference_deID.JSON') %>%
   # ... split it into lines ...
-  str_split('\n') %>% first() %>%
+  str_split('\n') %>% dplyr::first() %>%
   # ... filter empty rows ...
   discard(function(x) x == '') %>%
   # ... parse JSON into a data.frame
   map_dfr(fromJSON, flatten=T) -> all_data_sona
+
+all_data_sona <- all_data_sona %>%
+  mutate(ID = paste0(ID,"sona"))
+
 
 all_data <- rbind(all_data_mturk,all_data_sona)
 ```
@@ -323,6 +327,8 @@ recall_data <- filtered_data %>%
   select(ID,phase,paragraph) %>%
   pivot_wider(names_from = phase,
               values_from = paragraph) %>%
+  mutate(recall_1 = unlist(lapply(recall_1,"[[",1)),
+         recall_2 = unlist(lapply(recall_2,"[[",1))) %>%
   mutate(recall_1 = paste(recall_1,recall_2,sep = " ")) %>%
   select(ID,recall_1) %>%
  # separate_longer_delim(cols = recall_1,
@@ -480,37 +486,60 @@ knitr::kable(xtable(summary(recall_aov_collapsed)))
 
 ## simple effects
 
+Compare retrieval practice vs no retrieval practice for each judgment condition
+
 ```{r}
+# Self condition
+# Retrieval practice vs no retrieval practice
 self_retrieval_practice <- recall_data_subject %>%
   filter(study_instruction == "self")
 
-t.test(proportion_recalled ~ encoding_recall, paired = TRUE, data= self_retrieval_practice)
+self_retrieval_practice_t <- t.test(proportion_recalled ~ encoding_recall, paired = TRUE, data= self_retrieval_practice)
 
+self_retrieval_practice_t_apa <- papaja::apa_print(self_retrieval_practice_t)
 
+# Semantic condition
+# Retrieval practice vs no retrieval practice
 semantic_retrieval_practice <- recall_data_subject %>%
   filter(study_instruction == "semantic")
 
-t.test(proportion_recalled ~ encoding_recall, paired = TRUE, data= semantic_retrieval_practice)
+semantic_retrieval_practice_t <- t.test(proportion_recalled ~ encoding_recall, paired = TRUE, data= semantic_retrieval_practice)
+
+semantic_retrieval_practice_t_apa <- papaja::apa_print(semantic_retrieval_practice_t)
+
+# Case condition
+# Retrieval practice vs no retrieval practice
 
 case_retrieval_practice <- recall_data_subject %>%
   filter(study_instruction == "case")
 
-t.test(proportion_recalled ~ encoding_recall, paired = TRUE, data= case_retrieval_practice)
+case_retrieval_practice_t <- t.test(proportion_recalled ~ encoding_recall, paired = TRUE, data= case_retrieval_practice)
 
+case_retrieval_practice_t_apa <- papaja::apa_print(case_retrieval_practice_t)
+
+```
+
+Compare self-reference vs. semantic separately for retrieval and no-retrieval conditions.
+
+```{r}
+# self reference effect in no retrieval practice condition
 self_semantic_no_retrieval <- recall_data_subject %>%
   filter(study_instruction %in% c("self","semantic") == TRUE,
          encoding_recall == "no_recall")
 
-t.test(proportion_recalled ~ study_instruction, paired = TRUE, data= self_semantic_no_retrieval)
+self_semantic_no_retrieval_t <- t.test(proportion_recalled ~ study_instruction, paired = TRUE, data= self_semantic_no_retrieval)
 
+self_semantic_no_retrieval_t_apa <- papaja::apa_print(self_semantic_no_retrieval_t)
+
+
+# self reference effect in retrieval practice condition
 self_semantic_retrieval <- recall_data_subject %>%
   filter(study_instruction %in% c("self","semantic") == TRUE,
          encoding_recall == "recall")
 
-t.test(proportion_recalled ~ study_instruction, paired = TRUE, data= self_semantic_retrieval)
+self_semantic_retrieval_t <- t.test(proportion_recalled ~ study_instruction, paired = TRUE, data= self_semantic_retrieval)
 
-
-
+self_semantic_retrieval_t_apa <- papaja::apa_print(self_semantic_retrieval_t)
 ```
 
 
@@ -526,12 +555,11 @@ t.test(proportion_recalled ~ study_instruction, paired = TRUE, data= self_semant
 
 ## Results
 
-There was a main effect of encoding question, `r recall_apa_print_collapsed$full_result$study_instruction`. Mean proportion recall was lowest in the case condition (M = `r recall_effect_means_collapsed$study_instruction[study_instruction == "case"]$mean_proportion_recalled`, SEM = `r recall_effect_means_collapsed$study_instruction[study_instruction == "case"]$sem_proportion_recalled`),higher for the semantic condition (M = `r recall_effect_means_collapsed$study_instruction[study_instruction == "semantic"]$mean_proportion_recalled`, SEM = `r recall_effect_means_collapsed$study_instruction[study_instruction == "semantic"]$sem_proportion_recalled`), and highest for the self condition (M = `r recall_effect_means_collapsed$study_instruction[study_instruction == "self"]$mean_proportion_recalled`, SEM = `r recall_effect_means_collapsed$study_instruction[study_instruction == "self"]$sem_proportion_recalled`).
+There was a main effect of encoding question, `r recall_apa_print_collapsed$full_result$study_instruction`. Mean proportion recall was lowest in the case condition (M = `r recall_effect_means_collapsed$study_instruction[study_instruction == "case"]$mean_proportion_recalled`, SEM = `r recall_effect_means_collapsed$study_instruction[study_instruction == "case"]$sem_proportion_recalled`), higher for the semantic condition (M = `r recall_effect_means_collapsed$study_instruction[study_instruction == "semantic"]$mean_proportion_recalled`, SEM = `r recall_effect_means_collapsed$study_instruction[study_instruction == "semantic"]$sem_proportion_recalled`), and highest for the self condition (M = `r recall_effect_means_collapsed$study_instruction[study_instruction == "self"]$mean_proportion_recalled`, SEM = `r recall_effect_means_collapsed$study_instruction[study_instruction == "self"]$sem_proportion_recalled`).
 
 The retrieval practice effect was also significant, `r recall_apa_print_collapsed$full_result$encoding_recall`. Mean proportion recall was lower for items that did not receive retrieval practice (M = `r recall_effect_means_collapsed$encoding_recall[encoding_recall == "no_recall"]$mean_proportion_recalled`, SEM = `r recall_effect_means_collapsed$encoding_recall[encoding_recall == "no_recall"]$sem_proportion_recalled`), compared to items that did receive retrieval practice (M = `r recall_effect_means_collapsed$encoding_recall[encoding_recall == "recall"]$mean_proportion_recalled`, SEM = `r recall_effect_means_collapsed$encoding_recall[encoding_recall == "recall"]$sem_proportion_recalled`).
 
 The interaction between retrieval practice and encoding question approached significance, `r recall_apa_print_collapsed$full_result$encoding_recall_study_instruction`. 
-
 
 ## save data
 
