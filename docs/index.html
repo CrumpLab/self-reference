@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.523">
+<meta name="generator" content="quarto-1.4.533">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -104,6 +104,33 @@ div.csl-indent {
 }}});
   </script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="site_libs/quarto-contrib/quarto-project/wjschne/apaquarto/apa.css">
 </head>
@@ -246,13 +273,13 @@ div.csl-indent {
 <div style="page-break-after: always;"></div>
 <section id="abstract" class="level1 Abstract">
 <h1>Abstract</h1>
-<p>In levels of processing framework, Craik and Tulving (1975)’s experiments results demonstrated that subjects recalled more of the words which were encoded under the semantic tasks than other encoding conditons as semantic tasks require elaborate analysis of stimulus than judging the size of it.In 1977, Rogers et al.&nbsp;conducted an experiment in which self-reference effect was found to have led to superior recall. Subsequent research on underlying mechanisms of SRE have led to inconclusion. The present study takes a different perspective at why SRE promotes learning and proposes that the SRE effect emerges as a retrieval practice phenomenon as self is frequently engaged to recall information. We hypothesized that if participants pratice recall of the words during study, there will be no difference between the self and other conditions. Our second hypothesis stated that retrieval pratice will only enahnce the existing differences in each conditon. The results revealed that practicing recall does not help produce more words at the end and there was no self reference effect observed in no-recall condition. We infer that if there had been more delay in time, retrieval pratice would have led to superior retention of the stimuli. It is also possible that our sample size was too small and that participants did not follow instructions. Future research will focus on conductitng the experiment on Brooklyn College students.</p>
+<p>The present study investigated if the self-reference effect can be explained in terms of the retrieval practice phenomenon. In Rogers’s et al (1977) original experiment, words that described the self were recalled more than words that were judged for their superficial characteristics or their semantic meaning. Although a literature review shows this self-reference effect is a robust mnemonic device, its underlying mechanisms are still not understood properly. This study proposes that in the self-reference condition participants could be simply repeating the words to themselves which later leads to improved recall. The first hypothesis predicted that inducing participants to repeat adjective-traits will improve recall in case and semantic conditions but not the self condition since it is already engaging in that form of retrieval practice. The second hypothesis predicted that repeating words will increase recall in all conditions including the self. Three experiments 1a, 1b and 1 c were conducted online. Due to technical issues, results from experiment 1a were not reported. Experiment 1b and 1c drew participants from Amazon Mechanical Turk Master’s and Brooklyn College SONA. Participants were shown trait-adjectives on their computer screens and they were asked to either press YES or NO button to the questions. Our results supported the first hypothesis: the self-reference effect was only observed in the no retrieval practice conditions. However, it is possible that there are multiple causes responsible for the self-reference effect other than retrieval practice since we did not directly measure if participants were actually repeating the words to themselves. Future experiments can further explore the role of retrieval processes in the self-reference paradigm.</p>
 <p><em>Keywords</em>: Self Reference, Retrieval Practice</p>
 </section>
 <div style="page-break-after: always;"></div>
 <section id="is-the-self-reference-effect-a-retrieval-practice-phenomenon-1" class="level1">
 <h1>Is The Self Reference Effect a Retrieval Practice Phenomenon?</h1>
-<p>Memory performance can be enhanced by mnemonic devices that help learners retain information for later recall. A few effective devices include the method of loci, acronyms, and alphabetic cuing. The method of loci involves associating an arbitrary list of to-be-remembered items with the spatial layout of a familiar place. For example, in the case of memorizing a grocery list, one could imagine walking through rooms in their house and mentally place each item on the grocery list in different rooms. When later at the grocery store, the list of items can be recalled by mentally simulating walking through the rooms which provide a retrieval cue for each grocery item. Acronyms involve arranging the first letters of a list of to-be-remembered words to form a new memorable word. For example, each letter in “ROY G. BIV” refers to the colors on the visible spectrum. Similarly, alphabetic cueing is a device that may help people recover from momentary memory lapses, like tip-of-the tongue, where a person knows a word or name, but is unable to recall it. Alphabetic cuing involves systematically considering whether the word begins with “a”, or “b”, and so on. The process of considering each letter one at a time strategically varies the retrieval cue, and can lead to successful recall <span class="citation" data-cites="nelsonFirstLetterMnemonic1972">(<a href="#ref-nelsonFirstLetterMnemonic1972" role="doc-biblioref">Nelson &amp; Archer, 1972</a>)</span>. This thesis examines theoretical accounts of a mnemonic device called the self-reference effect that has been forwarded as a particularly powerful memory aid <span class="citation" data-cites="rogersSelfreferenceEncodingPersonal1977">(<a href="#ref-rogersSelfreferenceEncodingPersonal1977" role="doc-biblioref">Rogers et al., 1977</a>)</span>.</p>
+<p>Memory performance can be enhanced by mnemonic devices that help learners retain information for later recall. A few effective devices include the method of loci, acronyms, and alphabetic cuing. The method of loci involves associating an arbitrary list of to-be-remembered items with the spatial layout of a familiar place. For example, in the case of memorizing a grocery list, one could imagine walking through rooms in their house and mentally placing each item on the grocery list in different rooms. When later at the grocery store, the list of items can be recalled by mentally simulating walking through the rooms which provide a retrieval cue for each grocery item. Acronyms involve arranging the first letters of a list of to-be-remembered words to form a new memorable word. For example, each letter in “ROY G. BIV” refers to the colors on the visible spectrum. Similarly, alphabetic cueing is a device that may help people recover from momentary memory lapses, like tip-of-the tongue, where a person knows a word or name, but is unable to recall it. Alphabetic cuing involves systematically considering whether the word begins with “a”, or “b”, and so on. The process of considering each letter one at a time strategically varies the retrieval cue, and can lead to successful recall <span class="citation" data-cites="nelsonFirstLetterMnemonic1972">(<a href="#ref-nelsonFirstLetterMnemonic1972" role="doc-biblioref">Nelson &amp; Archer, 1972</a>)</span>. This thesis examines theoretical accounts of a mnemonic device called the self-reference effect that has been forwarded as a particularly powerful memory aid <span class="citation" data-cites="rogersSelfreferenceEncodingPersonal1977">(<a href="#ref-rogersSelfreferenceEncodingPersonal1977" role="doc-biblioref">Rogers et al., 1977</a>)</span>.</p>
 </section>
 <section id="the-self-reference-effect" class="level1">
 <h1>The self reference effect</h1>
@@ -303,20 +330,27 @@ div.csl-indent {
 <section id="experiment-1a-pilot" class="level1">
 <h1>Experiment 1a: Pilot</h1>
 <p>The first experiment was designed to test the hypothesis that the self-reference effect may reflect a confound due to retrieval practice. The design closely resembled the first experiment from <span class="citation" data-cites="rogersSelfreferenceEncodingPersonal1977">Rogers et al. (<a href="#ref-rogersSelfreferenceEncodingPersonal1977" role="doc-biblioref">1977</a>)</span>. Participants were presented with trait adjectives during an encoding phase followed by free recall. During the encoding phase each word was paired with one of three judgment tasks: letter case, semantic, and self-reference. The novel manipulation was to explicitly manipulate retrieval practice during the encoding phase for half of the words. For example, half of the encoding trials were followed by a secondary n-1 recall task, where participants were instructed to recall the previous word they had judged on the immediately preceding trial.</p>
-<p>Predictions for performance based on the major hypothesis are shown in Figure @ref(fig:predictions).</p>
-<div class="cell">
+<p>Predictions for performance based on the major hypothesis are shown in Figure&nbsp;1.</p>
+<div class="cell" data-apa-cap="Predicted number of words recalled for retrieval practice and study instruction conditions for different hypothetical outcomes.">
+<div id="apafg-predictions" class="FigureTitle">
+<p>Figure&nbsp;1</p>
+</div>
+<div class="Caption">
+<p>Predicted number of words recalled for retrieval practice and study instruction conditions for different hypothetical outcomes.</p>
+</div>
+<div class="FigureWithoutNote">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<figcaption>Predicted number of words recalled for retrieval practice and study instruction conditions for different hypothetical outcomes.</figcaption>
-<p><img src="index_files/figure-html/predictions-1.png" class="img-fluid figure-img" width="624"></p>
+<p><img src="index_files/figure-html/apafg-predictions-1.png" class="img-fluid figure-img" width="624"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>
 <p>Predictions from the primary hypothesis are shown in the H1 panel. The expectation for the no retrieval practice condition was to replicate the standard self-reference effect. Specifically, recall rates should increase with depth of encoding, such that recall would be highest in the self-reference condition, and lowest in the case-judgment condition (case &lt; semantic &lt; self).</p>
 <p>Two possible outcomes were considered for the retrieval practice condition. First, it is possible that participants already engage in retrieval practice (by mentally repeating the word) for words in the self-reference condition; and, that they do not engage in retrieval practice for the case or semantic judgments (which can be answered immediately without mentally repeating the word). In this case, retrieval practice may improve recall for words in the case and semantic conditions compared to the self-reference condition which may already be benefiting from retrieval practice. This could result in equivalent recall rates across all conditions (case = semantic = self). In other words, if the self-reference condition has superior recall rates because of retrieval practice, then we expected that delivering retrieval practice for items in the case and semantic conditions would improve recall to the level of the self-reference condition in those conditions.</p>
-<p>Another possibility is that retrieval practice provides benefits to recall for all words in all conditions. This possibility is shown in the H2 panel of Figure @ref(fig:predictions). Here, we there was a main effect of retrieval practice, and no interaction with the encoding question factor.</p>
+<p>Another possibility is that retrieval practice provides benefits to recall for all words in all conditions. This possibility is shown in the H2 panel of Figure&nbsp;1. Here, we predict a main effect of retrieval practice, and no interaction with the encoding question factor.</p>
 <p>Experiment 1a is considered a pilot experiment. To foreshadow the results, the participants recruited from Amazon’s Mechanical Turk did not provide analyzable data. The design and participant recruitment is improved upon in the remaining experiments.</p>
 <section id="methods" class="level2">
 <h2 data-anchor-id="methods">Methods</h2>
@@ -340,13 +374,13 @@ div.csl-indent {
 <section id="procedure." class="level3">
 <h3 data-anchor-id="procedure.">Procedure.</h3>
 <p>Participants were recruited from Amazon’s Mechanical Turk. They completed a consent form followed by a demographics questionnaire and task instructions. The task instructions stated, “In this phase you will make judgments about words that describe personality characteristics or traits. Sometimes you will be asked to remember words that were just shown to you. There are 44 words to judge. After this phase you will be given a memory test for all of the words you saw. Press any key to begin.”</p>
-<p>Following the instructions, participants completed the encoding phase. On each trial a cue question indicating the word judgment task was presented on screen for 3000 ms. There were three possible cue questions: “Is the following word written in upper case?”, “Does the following word have a positive meaning?”, and “Would you use the following word to describe yourself?”. Next, the target word appeared on screen underneath the cue question, along with two buttons to respond “yes” or “no”, all of which remained on screen until a response was made. There was an intertrial interval of 1000 ms. For words assigned to the retrieval practice condition a recall prompt appeared prior to the next trial. The recall prompt stated, “Recall the last word, type the last word that you judged.” Participants were shown a box with a cursor and proceeded to type their response. They pressed a button to continue to the next trial. There were a total of 44 encoding trials.</p>
+<p>Following the instructions, participants completed the encoding phase. On each trial a cue question indicating the word judgment task was presented on screen for 3000 ms. There were three possible cue questions: “Is the following word written in upper case?”, “Does the following word have a positive meaning?”, and “Would you use the following word to describe yourself?”. Next, the target word appeared onscreen underneath the cue question, along with two buttons to respond “yes” or “no”, all of which remained on screen until a response was made. There was an intertrial interval of 1000 ms. For words assigned to the retrieval practice condition a recall prompt appeared prior to the next trial. The recall prompt stated, “Recall the last word, type the last word that you judged.” Participants were shown a box with a cursor and proceeded to type their response. They pressed a button to continue to the next trial. There were a total of 44 encoding trials.</p>
 <p>In phase 2 of the experiment, participants were instructed to recall as many of the words as they could. Participants were shown an instruction screen stating, “Phase II instructions. In this phase you will be given a recall memory test. You made judgments about 44 words. Your task is now to recall as many words as you can by typing out each word. Press any key to begin.” Next participants were shown a screen with instructions and a text entry box. The instructions read, “Recall each word. You were shown 44 words, try to recall as many words as possible. Type each word separated by a space. Your responses will be shown in the box below.”</p>
 <p>Participants pressed a button to continue when they could not recall additional words. At this time, a second free recall phase began and participants were asked to try one more time to recall any additional words. The experiment ended after the final recall phase.</p>
 </section>
 <section id="data-exclusion." class="level3">
 <h3 data-anchor-id="data-exclusion.">Data-Exclusion.</h3>
-<p>Our experiment was conducted online and it was completed by participants on their web browsers. Although there were specific instructions at the beginning of the experiment, there was a possibility that participants completed and submitted the experiment without following the instructions. Thus, we set criteria for excluding those participants whose responses indicated that they did not follow the instructions to complete the tasks. During the study phase, part one of the experiment, participants were instructed to click on either, “Yes” or “No” button. There were three conditions: structural, semantics and self. In the structural condition, the questions asked if the word displayed on screen was in uppercase or lowercase. We judged the response to the questions in this condition to be the baseline for our criteria as this condition served as the participant’s ability to attend to instructions. We excluded participants who scored lower than 70% on structural judgement questions. A total of 16 participants were excluded. We also checked for response bias to make sure that the participants were not randomly choosing the “Yes” or “No” option as their responses to the question.</p>
+<p>Our experiment was conducted online and it was completed by participants on their web browsers. Although there were specific instructions at the beginning of the experiment, there was a possibility that participants completed and submitted the experiment without following the instructions. Thus, we set criteria for excluding those participants whose responses indicated that they did not follow the instructions to complete the tasks. During the study phase, part one of the experiment, participants were instructed to click on either, “Yes” or “No” button. There were three conditions: structural, semantics and self. In the structural condition, the questions asked if the word displayed on screen was in uppercase or lowercase. We judged the response to the questions in this condition to be the baseline for our criteria as this condition served as the participant’s ability to attend to instructions. We excluded participants who scored lower than 70% on structural judgment questions. A total of 16 participants were excluded. We also checked for response bias to make sure that the participants were not randomly choosing the “Yes” or “No” option as their responses to the question.</p>
 </section>
 </section>
 <section id="results-and-discussion" class="level2">
@@ -387,21 +421,28 @@ div.csl-indent {
 <section id="data-exclusion.-1" class="level3">
 <h3 data-anchor-id="data-exclusion.-1">Data-Exclusion.</h3>
 <p>We used the same exclusion procedure as described previously. No participants were removed from experiment 1b and 1 participant was removed from experiment 1c.</p>
-<p>We used R <span class="citation" data-cites="R-base">(Version 4.3.1; <a href="#ref-R-base" role="doc-biblioref">R Core Team, 2022</a>)</span> and the R-packages <em>conflicted</em> <span class="citation" data-cites="R-conflicted">(Version 1.2.0; <a href="#ref-R-conflicted" role="doc-biblioref"><strong>R-conflicted?</strong></a>)</span>, <em>data.table</em> <span class="citation" data-cites="R-data.table">(Version 1.14.8; <a href="#ref-R-data.table" role="doc-biblioref">Dowle &amp; Srinivasan, 2022</a>)</span>, <em>dplyr</em> <span class="citation" data-cites="R-dplyr">(Version 1.1.3; <a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al., 2023</a>)</span>, <em>flextable</em> <span class="citation" data-cites="R-flextable">(Version 0.9.3; <a href="#ref-R-flextable" role="doc-biblioref"><strong>R-flextable?</strong></a>)</span>, <em>forcats</em> <span class="citation" data-cites="R-forcats">(Version 1.0.0; <a href="#ref-R-forcats" role="doc-biblioref">Wickham, 2023</a>)</span>, <em>ftExtra</em> <span class="citation" data-cites="R-ftExtra">(Version 0.6.1; <a href="#ref-R-ftExtra" role="doc-biblioref"><strong>R-ftExtra?</strong></a>)</span>, <em>ggplot2</em> <span class="citation" data-cites="R-ggplot2">(Version 3.4.2; <a href="#ref-R-ggplot2" role="doc-biblioref">Wickham, 2016</a>)</span>, <em>jsonlite</em> <span class="citation" data-cites="R-jsonlite">(Version 1.8.7; <a href="#ref-R-jsonlite" role="doc-biblioref">Ooms, 2014</a>)</span>, <em>knitr</em> <span class="citation" data-cites="R-knitr">(Version 1.44; <a href="#ref-R-knitr" role="doc-biblioref"><strong>R-knitr?</strong></a>)</span>, <em>lubridate</em> <span class="citation" data-cites="R-lubridate">(Version 1.9.2; <a href="#ref-R-lubridate" role="doc-biblioref">Grolemund &amp; Wickham, 2011</a>)</span>, <em>officer</em> <span class="citation" data-cites="R-officer">(Version 0.6.2; <a href="#ref-R-officer" role="doc-biblioref"><strong>R-officer?</strong></a>)</span>, <em>papaja</em> <span class="citation" data-cites="R-papaja">(Version 0.1.1; <a href="#ref-R-papaja" role="doc-biblioref">Aust &amp; Barth, 2022</a>)</span>, <em>purrr</em> <span class="citation" data-cites="R-purrr">(Version 1.0.2; <a href="#ref-R-purrr" role="doc-biblioref">Wickham &amp; Henry, 2023</a>)</span>, <em>readr</em> <span class="citation" data-cites="R-readr">(Version 2.1.4; <a href="#ref-R-readr" role="doc-biblioref">Wickham, Hester, et al., 2023</a>)</span>, <em>stringr</em> <span class="citation" data-cites="R-stringr">(Version 1.5.0; <a href="#ref-R-stringr" role="doc-biblioref">Wickham, 2022</a>)</span>, <em>tibble</em> <span class="citation" data-cites="R-tibble">(Version 3.2.1; <a href="#ref-R-tibble" role="doc-biblioref">Müller &amp; Wickham, 2022</a>)</span>, <em>tidyr</em> <span class="citation" data-cites="R-tidyr">(Version 1.3.0; <a href="#ref-R-tidyr" role="doc-biblioref">Wickham, Vaughan, et al., 2023</a>)</span>, <em>tidyverse</em> <span class="citation" data-cites="R-tidyverse">(Version 2.0.0; <a href="#ref-R-tidyverse" role="doc-biblioref">Wickham et al., 2019</a>)</span>, <em>tinylabels</em> <span class="citation" data-cites="R-tinylabels">(Version 0.2.3; <a href="#ref-R-tinylabels" role="doc-biblioref">Barth, 2022</a>)</span>, and <em>xtable</em> <span class="citation" data-cites="R-flextable R-xtable">(<a href="#ref-R-xtable" role="doc-biblioref">Dahl et al., 2019</a>; Version 1.8.4; <a href="#ref-R-flextable" role="doc-biblioref"><strong>R-flextable?</strong></a>)</span> for all our analyses. An alpha criterion of .05 was adopted for all statistical tests.</p>
+<p>We used R <span class="citation" data-cites="R-base">(Version 4.3.2; <a href="#ref-R-base" role="doc-biblioref">R Core Team, 2022</a>)</span> and the R-packages <em>papaja</em> <span class="citation" data-cites="R-papaja">(Version 0.1.1; <a href="#ref-R-papaja" role="doc-biblioref">Aust &amp; Barth, 2022</a>)</span>, and <em>tidyverse</em> <span class="citation" data-cites="R-tidyverse">(Version 2.0.0; <a href="#ref-R-tidyverse" role="doc-biblioref">Wickham et al., 2019</a>)</span> for all our analyses. An alpha criterion of .05 was adopted for all statistical tests.</p>
 </section>
 </section>
 <section id="results" class="level2">
 <h2 data-anchor-id="results">Results</h2>
 <section id="experiment-1b-amazon-mechanical-turk-masters" class="level3">
 <h3 data-anchor-id="experiment-1b-amazon-mechanical-turk-masters">Experiment 1b: Amazon Mechanical Turk Master’s</h3>
-<p>We computed proportion of words correctly recalled for each participant in each condition of the design. The proportions were submitted to a 3 (Encoding Question: Case, Semantic, Self) x 2 (Retrieval Practice: Yes, No) x 2 (Question Order: Blocked, Mixed) mixed factorial design with Encoding Question, and Retrieval Practice as within-subject factors, and Question Order as the sole between-subject factor. Mean proportions of correctly recalled words in each condition are shown in Figure @ref(fig:E1Bresults).</p>
-<div class="cell">
+<p>We computed the proportion of words correctly recalled for each participant in each condition of the design. The proportions were submitted to a 3 (Encoding Question: Case, Semantic, Self) x 2 (Retrieval Practice: Yes, No) x 2 (Question Order: Blocked, Mixed) mixed factorial design with Encoding Question, and Retrieval Practice as within-subject factors, and Question Order as the sole between-subject factor. Mean proportions of correctly recalled words in each condition are shown in Figure&nbsp;2.</p>
+<div class="cell" data-apa-cap="Mean proportion words recalled in Experiment 1b as a function of encoding question, retrieval practice, and blocking variables.">
+<div id="apafg-E1Bresults" class="FigureTitle">
+<p>Figure&nbsp;2</p>
+</div>
+<div class="Caption">
+<p>Mean proportion words recalled in Experiment 1b as a function of encoding question, retrieval practice, and blocking variables.</p>
+</div>
+<div class="FigureWithoutNote">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<figcaption>Mean proportion words recalled in Experiment 1b as a function of encoding question, retrieval practice, and blocking variables.</figcaption>
-<p><img src="index_files/figure-html/E1Bresults-1.png" class="img-fluid figure-img" width="624"></p>
+<p><img src="index_files/figure-html/apafg-E1Bresults-1.png" class="img-fluid figure-img" width="624"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>
@@ -411,14 +452,21 @@ div.csl-indent {
 </section>
 <section id="experiment-1c-brooklyn-college-sona" class="level3">
 <h3 data-anchor-id="experiment-1c-brooklyn-college-sona">Experiment 1c: Brooklyn College SONA</h3>
-<p>The results from experiment 1c were submitted to the same analysis as above. Mean proportions of correctly recalled words in each condition are shown in Figure @ref(fig:E1Cresults).</p>
-<div class="cell">
+<p>The results from experiment 1c were submitted to the same analysis as above. Mean proportions of correctly recalled words in each condition are shown in Figure&nbsp;3.</p>
+<div class="cell" data-apa-cap="Mean proportion correctly recalled words in Experiment 1c as a function of encoding question, retrieval practice, and blocking variables.">
+<div id="apafg-E1Cresults" class="FigureTitle">
+<p>Figure&nbsp;3</p>
+</div>
+<div class="Caption">
+<p>Mean proportion correctly recalled words in Experiment 1c as a function of encoding question, retrieval practice, and blocking variables.</p>
+</div>
+<div class="FigureWithoutNote">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<figcaption>Mean proportion words recalled in Experiment 1c as a function of encoding question, retrieval practice, and blocking variables.</figcaption>
-<p><img src="index_files/figure-html/E1Cresults-1.png" class="img-fluid figure-img" width="624"></p>
+<p><img src="index_files/figure-html/apafg-E1Cresults-1.png" class="img-fluid figure-img" width="624"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>
@@ -431,24 +479,31 @@ div.csl-indent {
 <h3 data-anchor-id="post-hoc-power-analysis">Post-hoc power analysis</h3>
 <p>The results from Experiment 1b were used to conduct a simulation-based post-hoc power analysis. The purpose of the power analysis was to estimate the smallest effect size of interest that the design was capable of detecting. Experiment 1b did not show evidence of the expected self-reference effect, specifically measured as a difference between the self and semantic encoding conditions. One possibility is that our design was not sensitive enough to detect a difference between those conditions.</p>
 <p>The results of the power analysis indicated that the design had greater than power .8 to detect differences in recall proportions greater than .1 with n = 100. The design had power greater than .8 to detect differences in recall proportions greater than .05 with n = 200.</p>
-<p>The power analysis suggests that individual experiment may have been under-powered to detect the self-reference effect. To increase power by increasing the number of participants, the following analysis collapsed over the results from experiment 1b and 1c.</p>
+<p>The power analysis suggests that individual experiment may have been under-powered to detect the self-reference effect. To increase power by increasing the number of participants, the following analysis collapsed over the results from experiment 1b and 1c (see Figure&nbsp;4).</p>
 </section>
 <section id="combined-analysis" class="level3">
 <h3 data-anchor-id="combined-analysis">Combined analysis</h3>
-<div class="cell">
+<div class="cell" data-apa-cap="Mean proportion correctly recalled words collapsed across Experiment 1b and c, and collapsed over the blocking variable, as a function of encoding question and retrieval practice.">
+<div id="apafg-combined" class="FigureTitle">
+<p>Figure&nbsp;4</p>
+</div>
+<div class="Caption">
+<p>Mean proportion correctly recalled words collapsed across Experiment 1b and c, and collapsed over the blocking variable, as a function of encoding question and retrieval practice.</p>
+</div>
+<div class="FigureWithoutNote">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<figcaption>Mean proportion words recalled collapsed across Experiment 1b and c, and collapsed over the blocking variable, as a function of encoding question and retrieval practice.</figcaption>
-<p><img src="index_files/figure-html/combined-1.png" class="img-fluid figure-img" width="624"></p>
+<p><img src="index_files/figure-html/apafg-combined-1.png" class="img-fluid figure-img" width="624"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>
 <p>There was a main effect of encoding question, <span class="math inline">F(2, 234) = 23.25</span>, <span class="math inline">\mathit{MSE} = 0.04</span>, <span class="math inline">p &lt; .001</span>, <span class="math inline">\hat{\eta}^2_G = .052</span>. Mean proportion recall was lowest in the case condition (M = 0.143, SEM = 0.012),higher for the semantic condition (M = 0.219, SEM = 0.014), and highest for the self condition (M = 0.263, SEM = 0.015).</p>
 <p>The retrieval practice effect was also significant, <span class="math inline">F(1, 117) = 26.36</span>, <span class="math inline">\mathit{MSE} = 0.02</span>, <span class="math inline">p &lt; .001</span>, <span class="math inline">\hat{\eta}^2_G = .021</span>. Mean proportion recall was lower for items that did not receive retrieval practice (M = 0.178, SEM = 0.011), compared to items that did receive retrieval practice (M = 0.239, SEM = 0.012).</p>
 <p>The interaction between retrieval practice and encoding question approached significance, <span class="math inline">F(2, 234) = 2.58</span>, <span class="math inline">\mathit{MSE} = 0.02</span>, <span class="math inline">p = .078</span>, <span class="math inline">\hat{\eta}^2_G = .004</span>.</p>
-<p>The main hypotheses from figure @ref(fig:predictions) were investigated with simple effects comparisons. There are two ways to evaluate whether the self-reference effect was influenced by the retrieval practice manipulation.</p>
+<p>The main hypotheses from Figure&nbsp;1 were investigated with simple effects comparisons. There are two ways to evaluate whether the self-reference effect was influenced by the retrieval practice manipulation.</p>
 <p>First, looking solely at the self-reference condition, recall proportions in the retrieval practice condition were not higher than the no-retrieval practice, <span class="math inline">M_D = -0.03</span>, 95% CI <span class="math inline">[-0.08, 0.02]</span>, <span class="math inline">t(117) = -1.33</span>, <span class="math inline">p = .185</span>. This absence of a retrieval practice benefit for the self-reference condition is consistent with the hypothesis that participants were already engaging in retrieval practice as a part of making the self-reference judgment.</p>
 <p>Second, a self-reference benefit over the semantic judgment was observed in the no-retrieval practice condition, <span class="math inline">M_D = 0.06</span>, 95% CI <span class="math inline">[0.01, 0.10]</span>, <span class="math inline">t(117) = 2.50</span>, <span class="math inline">p = .014</span>. However, a self-reference benefit over the semantic judgment was not observed in the retrieval practice condition, <span class="math inline">M_D = 0.03</span>, 95% CI <span class="math inline">[-0.02, 0.08]</span>, <span class="math inline">t(117) = 1.23</span>, <span class="math inline">p = .220</span></p>
 </section>
@@ -456,13 +511,13 @@ div.csl-indent {
 </section>
 <section id="general-discussion" class="level1">
 <h1>General Discussion</h1>
-<p>The present experiments tested competing hypotheses about the potential role of retrieval practice in the self-reference effect. The first hypothesis was that retrieval practice will improve recall in the case and semantic judgment conditions, but not improve recall in the self judgment condition. The reasoning was that in self reference condition, participants were already repeating the words to themselves in the no-retrieval condition which would make retrieval practice redundant. The second hypothesis stated that retrieval practice will improve recall in all conditions. To be noted, according to both hypotheses we expected to observe the self-reference effect in the no-retrieval practice condition. The results for our pilot experiment 1a pointed out technical issues which were discussed earlier, and due to participants not following instructions results were not reported for this experiment. For experiment 1b and 1c, a combined analysis collapsing across the blocked and mixed conditions showed that the self-reference effect was only observed in the no-retrieval practice condition, and not observed in the retrieval practice condition. This pattern of results supported the first hypothesis. The remainder of the general discussion considers the main hypothesis, limitations, and more general memory-based explanations of the self-reference effect.</p>
-<p>To reiterate the main hypothesis, although the self-reference effect has often been attributed to a deep level of meaningful processing during encoding, the reported experiments examined a somewhat more superficial basis for superior recall in the self-reference condition: repeating or not repeating the target word using inner speech during a judgment. In the self judgment condition, participants may pose questions to themselves using their inner voice as a part of judging whether the target adjective relates to themselves. These questions could involve repeating the target adjective which would provide retrieval practice and improve recall for words in the self judgment condition compared to the case and semantic judgment conditions. Another assumption was that participants do not need to repeat target words as part of an inner monologue while completing case or semantic judgments. As a result, retrieval practice during encoding may be confounded across conditions. The experiments controlled whether or not retrieval practice occurred across all judgments, and found that the self-reference effect disappeared when overt retrieval practice was equivalent across conditions.</p>
-<p>The results are consistent with the primary hypothesis, but there are also limitations on the kinds of inferences that can be drawn from this study alone. The main assumption was that participants are naturally repeating words to themselves in the self judgment condition. However, the design did not measure whether participants actually repeat words to themselves during the encoding phase of the experiment. One suggestion for future work is to ask participants about their subjective experience while performing the task. According to the hypothesis, the expectation is that participants will self-report repeating the target words in the self condition, but not the other conditions.</p>
+<p>The present experiments tested competing hypotheses about the potential role of retrieval practice in the self-reference effect. The first hypothesis was that retrieval practice will improve recall in the case and semantic judgment conditions, but not improve recall in the self judgment condition. The reasoning was that in self reference condition, participants were already repeating the words to themselves in the no-retrieval condition which would make retrieval practice redundant. The second hypothesis stated that retrieval practice will improve recall in all conditions. To be noted, according to both hypotheses we expected to observe the self-reference effect in the no-retrieval practice condition. The results from the pilot experiment 1a pointed out technical issues which were discussed earlier, and due to participants not following instructions results were not reported for this experiment. For experiment 1b and 1c, a combined analysis collapsing across the blocked and mixed conditions showed that the self-reference effect was only observed in the no-retrieval practice condition, and not observed in the retrieval practice condition. This pattern of results supported the first hypothesis. The remainder of the general discussion considers the main hypothesis, limitations, and more general memory-based explanations of the self-reference effect.</p>
+<p>To reiterate the main hypothesis, although the self-reference effect has often been attributed to a deep level of meaningful processing during encoding <span class="citation" data-cites="rogersSelfreferenceEncodingPersonal1977 symonsSelfReferenceEffectMemory1997">(<a href="#ref-rogersSelfreferenceEncodingPersonal1977" role="doc-biblioref">Rogers et al., 1977</a>; <a href="#ref-symonsSelfReferenceEffectMemory1997" role="doc-biblioref">Symons &amp; Johnson, 1997</a>)</span>, the reported experiments examined a somewhat more superficial basis for superior recall in the self-reference condition: repeating or not repeating the target word using inner speech during a judgment. In the self judgment condition, participants may pose questions to themselves using their inner voice as a part of judging whether the target adjective relates to themselves. These questions could involve repeating the target adjective which would provide retrieval practice and improve recall for words in the self judgment condition compared to the case and semantic judgment conditions. Another assumption was that participants do not need to repeat target words as part of an inner monologue while completing case or semantic judgments. As a result, retrieval practice during encoding may be confounded across conditions. The experiments controlled whether or not retrieval practice occurred across all judgments, and found that the self-reference effect disappeared when overt retrieval practice was equivalent across conditions.</p>
+<p>The results are consistent with the primary hypothesis, but there are also limitations on the kinds of inferences that can be drawn from this study alone. The main assumption was that participants were naturally repeating words to themselves in the self judgment condition. However, the experiment did not directly measure whether participants actually repeated words to themselves during the encoding phase of the experiment. One suggestion for future work is to ask participants about their subjective experience while performing the task. According to the hypothesis, the expectation is that participants will self-report repeating the target words in the self condition, but not the other conditions.</p>
 <p>The experiment did not attempt to directly control inner voice processes during judgments. Instead, the n-back task following some encoding trials was used to force retrieval practice and act as a proxy processing experience equivalent to repeating a word to oneself during the actual judgment. A converging manipulation for future work would be to control inner voice processes more directly. For example, verbal suppression could be manipulated instead of retrieval practice. Verbal suppression involves having participants repeat a word– like “the” over and over– out loud while completing a task. The expectation is that verbal suppression would interrupt inner narrative processing during self judgments, reduce or eliminate inner voice repetitions of the target word, and thus eliminate the self-reference effect.</p>
 <p>A last concern is the possibility of ceiling effects. On the one hand, there may be a ceiling on recall rates due to the nature of the stimuli and general capacity limitations for this design. As a result, it is possible the absence of a self-reference effect in the retrieval practice condition reflects some kind of ceiling on recall in this task. On the other hand, ceiling effects may not be a concern. For example, recall rates were overall very low, and it was entirely possible for participants to recall many more words than they did on average.</p>
-<p>Despite these limitations, the results indicate there are some theoretical and practical implications to be considered. The results showed that mean proportion recall was lower for words that did not receive retrieval practice. This findings can be interpreted to suggest that self-reference may not be about depth of processing. As discussed earlier, the paradigm has heavily focused on “durability” of memory traces which are determined by how deeply the stimuli is processed. Accordingly, less durable traces are prone to decaying and not available for retrieval.</p>
-<p>Although the current study offers support for retrieval practice as a mechanism contributing to the self-reference condition, it remains possible that the self reference effect has multiple causes. For example, the role of retrieval practice could conceivably exist in tandem with the other encoding based explanations mentioned in the introduction. In addition, it is possible that retrieval processes may play a larger role than described so far. For example, the transfer appropriate processing principle <span class="citation" data-cites="morrisLevelsProcessingTransfer1977">(<a href="#ref-morrisLevelsProcessingTransfer1977" role="doc-biblioref">Morris et al., 1977</a>)</span> suggests that memory performance facilitated when processing demands during retrieval match well with processing demands encountered during encoding. It may be the case that participants naturally think about themselves during the free recall task, and such a default perspective could match well with the processing demands encountered during the self-reference task versus other tasks. On this view, the self-reference effect may be enhanced or diminished by manipulating how recall is framed during retrieval. For example, if participants were instructed to separately recall words from the case, semantic, and self-reference conditions, then the self-reference effect may be reduced because recall in the other conditions would benefit from explicit cues that matched words in those encoding conditions.</p>
+<p>Despite these limitations, the results indicate there are some theoretical and practical implications to be considered. The results showed that mean proportion recall was lower for words that did not receive retrieval practice. This finding can be interpreted to suggest that self-reference may not be about depth of processing. As discussed earlier, the paradigm has heavily focused on “durability” of memory traces which are determined by how deeply the stimuli is processed. Accordingly, less durable traces are prone to decaying and not available for retrieval.</p>
+<p>Although the current study offers support for retrieval practice as a mechanism contributing to the self-reference effect, it remains possible that the self reference effect has multiple causes. For example, the role of retrieval practice could conceivably exist in tandem with the other encoding based explanations mentioned in the introduction. In addition, it is possible that retrieval processes may play a larger role than described so far. For example, the transfer appropriate processing principle <span class="citation" data-cites="morrisLevelsProcessingTransfer1977">(<a href="#ref-morrisLevelsProcessingTransfer1977" role="doc-biblioref">Morris et al., 1977</a>)</span> suggests that memory performance facilitated when processing demands during retrieval match well with processing demands encountered during encoding. It may be the case that participants naturally think about themselves during the free recall task, and such a default perspective could match well with the processing demands encountered during the self-reference task versus other tasks. On this view, the self-reference effect may be enhanced or diminished by manipulating how recall is framed during retrieval. For example, if participants were instructed to separately recall words from the case, semantic, and self-reference conditions, then the self-reference effect may be reduced because recall in the other conditions would benefit from explicit cues that matched words in those encoding conditions.</p>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
@@ -475,9 +530,6 @@ div.csl-indent {
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-R-papaja" class="csl-entry" role="listitem">
 Aust, F., &amp; Barth, M. (2022). <em><span class="nocase">papaja</span>: <span>Prepare</span> reproducible <span>APA</span> journal articles with <span>R Markdown</span></em>. <a href="https://github.com/crsh/papaja">https://github.com/crsh/papaja</a>
-</div>
-<div id="ref-R-tinylabels" class="csl-entry" role="listitem">
-Barth, M. (2022). <em><span class="nocase">tinylabels</span>: Lightweight variable labels</em>. <a href="https://cran.r-project.org/package=tinylabels">https://cran.r-project.org/package=tinylabels</a>
 </div>
 <div id="ref-bellezzaSelfMnemonicDevice1984" class="csl-entry" role="listitem">
 Bellezza, F. S. (1984). The <span>Self</span> as a <span>Mnemonic Device</span>: <span>The Role</span> of <span>Internal Cues</span>. <em>Journal of Personality and Social Psychology</em>, <em>47</em>, 506–516. <a href="https://doi.org/10.1037/0022-3514.47.3.506">https://doi.org/10.1037/0022-3514.47.3.506</a>
@@ -503,23 +555,14 @@ Craik, F. I. M., &amp; Lockhart, R. S. (1972). Levels of processing: <span>A</sp
 <div id="ref-craikDepthProcessingRetention1975" class="csl-entry" role="listitem">
 Craik, F. I. M., &amp; Tulving, E. (1975). Depth of processing and the retention of words in episodic memory. <em>Journal of Experimental Psychology: General</em>, <em>104</em>(3), 268–294. <a href="https://doi.org/10.1037/0096-3445.104.3.268">https://doi.org/10.1037/0096-3445.104.3.268</a>
 </div>
-<div id="ref-R-xtable" class="csl-entry" role="listitem">
-Dahl, D. B., Scott, D., Roosen, C., Magnusson, A., &amp; Swinton, J. (2019). <em>Xtable: Export tables to LaTeX or HTML</em>. <a href="https://CRAN.R-project.org/package=xtable">https://CRAN.R-project.org/package=xtable</a>
-</div>
 <div id="ref-deleeuwJsPsychJavaScriptLibrary2015" class="csl-entry" role="listitem">
 de Leeuw, J. R. (2015). <span class="nocase">jsPsych</span>: <span>A JavaScript</span> library for creating behavioral experiments in a <span>Web</span> browser. <em>Behavior Research Methods</em>, <em>47</em>(1), 1–12. <a href="https://doi.org/10.3758/s13428-014-0458-y">https://doi.org/10.3758/s13428-014-0458-y</a>
-</div>
-<div id="ref-R-data.table" class="csl-entry" role="listitem">
-Dowle, M., &amp; Srinivasan, A. (2022). <em>Data.table: Extension of ‘data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table">https://CRAN.R-project.org/package=data.table</a>
 </div>
 <div id="ref-ganellenWhyDoesSelfreference1985" class="csl-entry" role="listitem">
 Ganellen, R. J., &amp; Carver, C. S. (1985). Why does self-reference promote incidental encoding? <em>Journal of Experimental Social Psychology</em>, <em>21</em>(3), 284–300. <a href="https://doi.org/10.1016/0022-1031(85)90021-6">https://doi.org/10.1016/0022-1031(85)90021-6</a>
 </div>
 <div id="ref-goddenContextdependentMemoryTwo1975" class="csl-entry" role="listitem">
 Godden, D. R., &amp; Baddeley, A. D. (1975). Context-dependent memory in two natural environments: <span>On</span> land and underwater. <em>British Journal of Psychology</em>, <em>66</em>(3), 325–331. <a href="https://doi.org/10.1111/j.2044-8295.1975.tb01468.x">https://doi.org/10.1111/j.2044-8295.1975.tb01468.x</a>
-</div>
-<div id="ref-R-lubridate" class="csl-entry" role="listitem">
-Grolemund, G., &amp; Wickham, H. (2011). Dates and times made easy with <span class="nocase">lubridate</span>. <em>Journal of Statistical Software</em>, <em>40</em>(3), 1–25. <a href="https://www.jstatsoft.org/v40/i03/">https://www.jstatsoft.org/v40/i03/</a>
 </div>
 <div id="ref-karpickeRetrievalBasedLearningActive2012" class="csl-entry" role="listitem">
 Karpicke, J. D. (2012). Retrieval-<span>Based Learning</span>: <span>Active Retrieval Promotes Meaningful Learning</span>. <em>Current Directions in Psychological Science</em>, <em>21</em>(3), 157–163. <a href="https://doi.org/10.1177/0963721412443552">https://doi.org/10.1177/0963721412443552</a>
@@ -554,17 +597,11 @@ Markus, H. (1977). Self-schemata and processing information about the self. <em>
 <div id="ref-morrisLevelsProcessingTransfer1977" class="csl-entry" role="listitem">
 Morris, C. D., Bransford, J. D., &amp; Franks, J. J. (1977). Levels of processing versus transfer appropriate processing. <em>Journal of Verbal Learning and Verbal Behavior</em>, <em>16</em>(5), 519–533. <a href="https://doi.org/10.1016/S0022-5371(77)80016-9">https://doi.org/10.1016/S0022-5371(77)80016-9</a>
 </div>
-<div id="ref-R-tibble" class="csl-entry" role="listitem">
-Müller, K., &amp; Wickham, H. (2022). <em>Tibble: Simple data frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>
-</div>
 <div id="ref-nelsonFirstLetterMnemonic1972" class="csl-entry" role="listitem">
 Nelson, D. L., &amp; Archer, C. S. (1972). The first letter mnemonic. <em>Journal of Educational Psychology</em>, <em>63</em>(5), 482–486. <a href="https://doi.org/10.1037/h0033131">https://doi.org/10.1037/h0033131</a>
 </div>
 <div id="ref-northoffSelfreferentialProcessingOur2006" class="csl-entry" role="listitem">
 Northoff, G., Heinzel, A., Greck, M. de, Bermpohl, F., Dobrowolny, H., &amp; Panksepp, J. (2006). Self-referential processing in our brain—<span>A</span> meta-analysis of imaging studies on the self. <em>NeuroImage</em>, <em>31</em>(1), 440–457. <a href="https://doi.org/10.1016/j.neuroimage.2005.12.002">https://doi.org/10.1016/j.neuroimage.2005.12.002</a>
-</div>
-<div id="ref-R-jsonlite" class="csl-entry" role="listitem">
-Ooms, J. (2014). The jsonlite package: A practical and consistent mapping between JSON data and r objects. <em>arXiv:1403.2805 [Stat.CO]</em>. <a href="https://arxiv.org/abs/1403.2805">https://arxiv.org/abs/1403.2805</a>
 </div>
 <div id="ref-R-base" class="csl-entry" role="listitem">
 R Core Team. (2022). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>
@@ -590,29 +627,8 @@ Turk, D. J., Cunningham, S. J., &amp; Macrae, C. N. (2008). Self-memory biases i
 <div id="ref-turkSelfishLearningImpact2015" class="csl-entry" role="listitem">
 Turk, D. J., Gillespie-Smith, K., Krigolson, O. E., Havard, C., Conway, M. A., &amp; Cunningham, S. J. (2015). Selfish learning: <span>The</span> impact of self-referential encoding on children’s literacy attainment. <em>Learning and Instruction</em>, <em>40</em>, 54–60. <a href="https://doi.org/10.1016/j.learninstruc.2015.08.001">https://doi.org/10.1016/j.learninstruc.2015.08.001</a>
 </div>
-<div id="ref-R-ggplot2" class="csl-entry" role="listitem">
-Wickham, H. (2016). <em>ggplot2: Elegant graphics for data analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>
-</div>
-<div id="ref-R-stringr" class="csl-entry" role="listitem">
-Wickham, H. (2022). <em>Stringr: Simple, consistent wrappers for common string operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>
-</div>
-<div id="ref-R-forcats" class="csl-entry" role="listitem">
-Wickham, H. (2023). <em>Forcats: Tools for working with categorical variables (factors)</em>. <a href="https://CRAN.R-project.org/package=forcats">https://CRAN.R-project.org/package=forcats</a>
-</div>
 <div id="ref-R-tidyverse" class="csl-entry" role="listitem">
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., Grolemund, G., Hayes, A., Henry, L., Hester, J., Kuhn, M., Pedersen, T. L., Miller, E., Bache, S. M., Müller, K., Ooms, J., Robinson, D., Seidel, D. P., Spinu, V., … Yutani, H. (2019). Welcome to the <span class="nocase">tidyverse</span>. <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>
-</div>
-<div id="ref-R-dplyr" class="csl-entry" role="listitem">
-Wickham, H., François, R., Henry, L., Müller, K., &amp; Vaughan, D. (2023). <em>Dplyr: A grammar of data manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>
-</div>
-<div id="ref-R-purrr" class="csl-entry" role="listitem">
-Wickham, H., &amp; Henry, L. (2023). <em>Purrr: Functional programming tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a>
-</div>
-<div id="ref-R-readr" class="csl-entry" role="listitem">
-Wickham, H., Hester, J., &amp; Bryan, J. (2023). <em>Readr: Read rectangular text data</em>. <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>
-</div>
-<div id="ref-R-tidyr" class="csl-entry" role="listitem">
-Wickham, H., Vaughan, D., &amp; Girlich, M. (2023). <em>Tidyr: Tidy messy data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>
 </div>
 </div>
 </section>
@@ -739,27 +755,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -774,10 +769,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -786,7 +785,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
       return note.innerHTML;
     }
   }
